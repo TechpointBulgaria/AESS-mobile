@@ -13,6 +13,7 @@
 import { call, put } from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
 import { AsyncStorage } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 // import { LoginSelectors } from '../Redux/LoginRedux'
 
 export function* login(api, action) {
@@ -27,6 +28,11 @@ export function* login(api, action) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(LoginActions.loginSuccess(response.data))
+    yield put(
+      NavigationActions.navigate({
+        routeName: 'RoomScreen'
+      })
+    )
   } else {
     yield put(LoginActions.loginFailure())
   }
