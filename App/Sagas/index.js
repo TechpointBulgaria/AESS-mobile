@@ -8,12 +8,14 @@ import API from '../Services/MyApi'
 // import { StartupTypes } from '../Redux/StartupRedux'
 // import { GithubTypes } from '../Redux/GithubRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
+import { RoomTypes } from '../Redux/RoomRedux'
 
 /* ------------- Sagas ------------- */
 
 // import { startup } from './StartupSagas'
 // import { getUserAvatar } from './GithubSagas'
 import { login } from './LoginSagas'
+import { getRooms } from './RoomSagas'
 
 /* ------------- API ------------- */
 
@@ -31,6 +33,7 @@ export default function* root() {
     //
     // // some sagas receive extra parameters in addition to an action
     // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
-    takeLatest(LoginTypes.LOGIN_REQUEST, login, api)
+    takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
+    takeLatest(RoomTypes.ROOM_REQUEST, getRooms, api)
   ])
 }

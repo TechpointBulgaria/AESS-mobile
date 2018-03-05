@@ -14,10 +14,16 @@ const PrimaryNav = StackNavigator(
   },
   {
     // Default config for all screens
-    headerMode: 'none',
+    // headerMode: 'none',
     initialRouteName: 'LoginScreen',
     navigationOptions: {
-      headerStyle: styles.header
+      headerStyle: {
+        backgroundColor: '#f4511e'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      }
     }
   }
 )

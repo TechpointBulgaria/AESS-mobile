@@ -10,21 +10,21 @@
  *    you'll need to define a constant in that file.
  *************************************************************/
 
-import { call, put } from 'redux-saga/effects'
-import LoginActions from '../Redux/LoginRedux'
-import { AsyncStorage } from 'react-native'
-import { NavigationActions } from 'react-navigation'
+import { call, put, select } from 'redux-saga/effects'
 import RoomActions from '../Redux/RoomRedux'
+import { LoginSelectors } from '../Redux/LoginRedux'
+// import { RoomSelectors } from '../Redux/RoomRedux'
 
-export function* login(api, action) {
-  const { data } = action
-  const response = yield call(api.login, data)
+export function* getRooms(api, action) {
+  const token = yield select(LoginSelectors.getToken)
+  const response = yield call(api.fetchRooms, token)
 
+  // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(LoginActions.loginSuccess(response.data))
+    yield put(RoomActions.roomSuccess(response.data))
   } else {
-    yield put(LoginActions.loginFailure())
+    yield put(RoomActions.roomFailure())
   }
 }

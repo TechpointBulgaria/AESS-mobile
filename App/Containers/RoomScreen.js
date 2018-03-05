@@ -1,32 +1,41 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { View, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import RoomActions, { RoomSelectors } from '../Redux/RoomRedux'
 
 // Styles
 import styles from './Styles/RoomScreenStyle'
 
 class RoomScreen extends Component {
-  render () {
+  static navigationOptions = {
+    title: 'Home',
+    headerBackTitle: 'Login'
+  }
+
+  componentDidMount() {
+    this.props.fetchRooms()
+  }
+
+  render() {
+    const { rooms } = this.props
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
+      <View style={styles.container}>
+        <Text>{rooms && JSON.stringify(rooms)}</Text>
+        <KeyboardAvoidingView behavior="position">
           <Text>RoomScreen</Text>
         </KeyboardAvoidingView>
-      </ScrollView>
+      </View>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
+const mapStateToProps = state => ({
+  rooms: RoomSelectors.getRooms(state)
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  fetchRooms: () => dispatch(RoomActions.roomRequest())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen)

@@ -1,6 +1,6 @@
 import apisauce from 'apisauce'
 
-const create = (baseURL = 'http://62.210.30.128:27272') => {
+const create = (baseURL = 'http://62.210.30.128:27272/v1') => {
   const api = apisauce.create({
     baseURL,
     headers: {
@@ -11,13 +11,25 @@ const create = (baseURL = 'http://62.210.30.128:27272') => {
   })
 
   const login = ({ email, password }) =>
-    api.post('v1/auth/login', {
+    api.post('auth/login', {
       email,
       password
     })
 
+  const fetchRooms = token =>
+    api.get(
+      'rooms',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
   return {
-    login
+    login,
+    fetchRooms
   }
 }
 

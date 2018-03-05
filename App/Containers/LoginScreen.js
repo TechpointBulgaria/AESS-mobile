@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
+import { NavigationActions } from 'react-navigation'
 
 import {
   Button,
@@ -19,6 +20,10 @@ class LoginScreen extends Component {
     password: ''
   }
 
+  static navigationOptions = {
+    title: 'Login'
+  }
+
   constructor() {
     super()
     this.handleLoginClick = this.handleLoginClick.bind(this)
@@ -29,7 +34,6 @@ class LoginScreen extends Component {
   handleLoginClick() {
     const { login } = this.props
     login(this.state)
-    console.log(this.state)
   }
 
   handleChangeUsername(value) {
@@ -44,17 +48,44 @@ class LoginScreen extends Component {
     })
   }
 
+  componentDidMount() {
+    console.log('dm', this.props.isLoggedIn)
+    if (this.props.isLoggedIn) this.props.redirectToRoomsScreen()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('wrp', this.props.isLoggedIn, nextProps.isLoggedIn)
+    if (!this.props.isLoggedIn && nextProps.isLoggedIn)
+      this.props.redirectToRoomsScreen()
+  }
+
   render() {
-    const { isFetching, error, token } = this.props
+    const { isFetching, error } = this.props
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView behavior="position">
           <FormLabel>Username</FormLabel>
-          <FormInput onChangeText={this.handleChangeUsername} />
+          <FormInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            onChangeText={this.handleChangeUsername}
+            onSubmitEditing={() => this.refs.password.focus()}
+            returnKeyType="next"
+          />
           <FormLabel>Password</FormLabel>
-          <FormInput onChangeText={this.handleChangePassword} />
+          <FormInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="default"
+            onChangeText={this.handleChangePassword}
+            onSubmitEditing={this.handleLoginClick}
+            ref="password"
+            returnKeyType="go"
+            secureTextEntry
+          />
           {error ? (
-            <FormValidationMessage>
+            <FormValidationMessage style={styles.errorMessage}>
               Wrong username or password!
             </FormValidationMessage>
           ) : null}
@@ -70,12 +101,19 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = state => ({
+  isLoggedIn: LoginSelectors.isLoggedIn(state),
   isFetching: LoginSelectors.isFetching(state),
   error: LoginSelectors.getError(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: credentials => dispatch(LoginActions.loginRequest(credentials))
+  login: credentials => dispatch(LoginActions.loginRequest(credentials)),
+  redirectToRoomsScreen: () =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName: 'RoomScreen'
+      })
+    )
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
