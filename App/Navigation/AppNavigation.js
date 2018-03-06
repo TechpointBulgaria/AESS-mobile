@@ -1,31 +1,17 @@
-import { StackNavigator } from 'react-navigation'
-import RoomScreen from '../Containers/RoomScreen'
+import { SwitchNavigator } from 'react-navigation'
+import SplashScreen from '../Containers/SplashScreen'
 import LoginScreen from '../Containers/LoginScreen'
-import LaunchScreen from '../Containers/LaunchScreen'
+import Drawer from './Drawer'
 
 import styles from './Styles/NavigationStyles'
 
-// Manifest of possible screens
-const PrimaryNav = StackNavigator(
+export default SwitchNavigator(
   {
-    RoomScreen: { screen: RoomScreen },
-    LoginScreen: { screen: LoginScreen },
-    LaunchScreen: { screen: LaunchScreen }
+    SplashScreen,
+    LoginScreen,
+    App: Drawer
   },
   {
-    // Default config for all screens
-    // headerMode: 'none',
-    initialRouteName: 'LoginScreen',
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: '#f4511e'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold'
-      }
-    }
+    initialRouteName: 'SplashScreen'
   }
 )
-
-export default PrimaryNav

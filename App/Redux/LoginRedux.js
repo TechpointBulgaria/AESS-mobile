@@ -26,10 +26,7 @@ export const INITIAL_STATE = Immutable({
 
 export const LoginSelectors = {
   getToken: state => state.login.token,
-  isLoggedIn: state => {
-    console.log(state)
-    return !!state.login.token
-  },
+  isLoggedIn: state => !!state.login.token,
   isFetching: state => state.login.fetching,
   getError: state => state.login.error
 }

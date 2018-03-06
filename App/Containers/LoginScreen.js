@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
-import { NavigationActions } from 'react-navigation'
 
 import {
   Button,
@@ -49,14 +48,13 @@ class LoginScreen extends Component {
   }
 
   componentDidMount() {
-    console.log('dm', this.props.isLoggedIn)
-    if (this.props.isLoggedIn) this.props.redirectToRoomsScreen()
+    const { isLoggedIn, navigation } = this.props
+    if (isLoggedIn) navigation.navigate('App')
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('wrp', this.props.isLoggedIn, nextProps.isLoggedIn)
     if (!this.props.isLoggedIn && nextProps.isLoggedIn)
-      this.props.redirectToRoomsScreen()
+      this.props.navigation.navigate('App')
   }
 
   render() {
@@ -107,13 +105,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: credentials => dispatch(LoginActions.loginRequest(credentials)),
-  redirectToRoomsScreen: () =>
-    dispatch(
-      NavigationActions.navigate({
-        routeName: 'RoomScreen'
-      })
-    )
+  login: credentials => dispatch(LoginActions.loginRequest(credentials))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

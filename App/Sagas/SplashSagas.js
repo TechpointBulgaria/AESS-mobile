@@ -10,24 +10,33 @@
  *    you'll need to define a constant in that file.
  *************************************************************/
 
-import { call, put } from 'redux-saga/effects'
-import LoginActions from '../Redux/LoginRedux'
+import { delay } from 'redux-saga'
+import { call, put, select } from 'redux-saga/effects'
+import SplashActions from '../Redux/SplashRedux'
+import { AsyncStorage } from 'react-native'
 import RoomActions from '../Redux/RoomRedux'
+import { LoginSelectors } from '../Redux/LoginRedux'
 
-export function* login(api, action) {
-  const { data } = action
-  const response = yield call(api.login, data)
+export function* init(api, action) {
+  let rehydrated = yield select(
+    state => state._persist && state._persist.rehydrated
+  )
+  while (!rehydrated) {
+    yield call(delay, 100)
+    rehydrated = yield select(
+      state => state._persist && state._persist.rehydrated
+    )
+  }
 
-  if (response.ok) {
-    const { token } = response.data.result
+  const token = yield select(LoginSelectors.getToken)
+
+  if (token) {
     const roomsResponse = yield call(api.fetchRooms, token)
     if (roomsResponse.ok) {
       yield put(RoomActions.roomSuccess(roomsResponse.data))
     } else {
       yield put(RoomActions.roomFailure())
     }
-    yield put(LoginActions.loginSuccess(response.data))
-  } else {
-    yield put(LoginActions.loginFailure())
-  }
+    yield put(SplashActions.loggedIn())
+  } else yield put(SplashActions.notLoggedIn())
 }

@@ -6,11 +6,12 @@ import ReduxPersist from '../Config/ReduxPersist'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  nav: require('./NavigationRedux').reducer,
-  login: require('./LoginRedux').reducer,
   github: require('./GithubRedux').reducer,
+  login: require('./LoginRedux').reducer,
+  // nav: require('./NavigationRedux').reducer,
+  rooms: require('./RoomRedux').reducer,
   search: require('./SearchRedux').reducer,
-  rooms: require('./RoomRedux').reducer
+  splash: require('./SplashRedux').reducer
 })
 
 export default () => {

@@ -1,28 +1,24 @@
 import React, { Component } from 'react'
-import { View, Text, KeyboardAvoidingView } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Button } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import RoomActions, { RoomSelectors } from '../Redux/RoomRedux'
+import { NavigationActions } from 'react-navigation'
 
 // Styles
 import styles from './Styles/RoomScreenStyle'
 
 class RoomScreen extends Component {
-  static navigationOptions = {
-    title: 'Home',
-    headerBackTitle: 'Login'
-  }
-
-  componentDidMount() {
-    this.props.fetchRooms()
-  }
-
-  render() {
+  getCurrentRoom(id) {
     const { rooms } = this.props
+    return rooms.filter(room => room.id === id)[0]
+  }
+  render() {
+    const room = this.getCurrentRoom(this.props.id)
     return (
       <View style={styles.container}>
-        <Text>{rooms && JSON.stringify(rooms)}</Text>
         <KeyboardAvoidingView behavior="position">
+          <Text>{JSON.stringify(room)}</Text>
           <Text>RoomScreen</Text>
         </KeyboardAvoidingView>
       </View>
