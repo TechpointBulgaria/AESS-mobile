@@ -82,12 +82,13 @@ class LoginScreen extends Component {
             returnKeyType="go"
             secureTextEntry
           />
-          {error ? (
+          {error && (
             <FormValidationMessage style={styles.errorMessage}>
               Wrong username or password!
             </FormValidationMessage>
-          ) : null}
+          )}
           <Button
+            style={styles.loginButton}
             title="Login"
             onPress={this.handleLoginClick}
             loading={isFetching}

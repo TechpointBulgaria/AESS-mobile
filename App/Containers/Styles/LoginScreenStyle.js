@@ -12,5 +12,8 @@ export default StyleSheet.create({
     height: 80,
     marginTop: 40,
     marginBottom: 40
+  },
+  loginButton: {
+    marginTop: Metrics.marginVertical
   }
 })
