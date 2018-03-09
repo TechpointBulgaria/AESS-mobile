@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import { Fonts, Colors } from '../../Themes'
 import Widget from './Widget'
 
-export default () => (
+export default ({ sensor }) => (
   <Widget>
     <Text
       style={{
@@ -11,7 +11,7 @@ export default () => (
         color: Colors.coal
       }}
     >
-      No devices.
+      Graph
     </Text>
   </Widget>
 )

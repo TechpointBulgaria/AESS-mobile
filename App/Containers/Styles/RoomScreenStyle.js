@@ -6,8 +6,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.frost,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: Metrics.padding
   }
 })
