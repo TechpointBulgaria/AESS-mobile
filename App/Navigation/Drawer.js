@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import MenuButton from './MenuButton'
 import RoomScreen from '../Containers/RoomScreen'
+import DrawerContent from './DrawerContent'
 
 const createRoomStack = ({ name, id }) => ({
   [name]: StackNavigator({
@@ -26,7 +27,15 @@ const Drawer = ({ rooms }) => {
     {}
   )
 
-  const Nav = DrawerNavigator(drawerItems)
+  const Nav = DrawerNavigator(drawerItems, {
+    contentComponent: DrawerContent,
+    contentOptions: {
+      activeTintColor: 'red',
+      onItemPress: route => {
+        console.log('hi')
+      }
+    }
+  })
   return <Nav />
 }
 

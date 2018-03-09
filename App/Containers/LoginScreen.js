@@ -106,7 +106,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: credentials => dispatch(LoginActions.loginRequest(credentials))
+  // login: credentials => dispatch(LoginActions.loginRequest(credentials))
+  login: credentials =>
+    dispatch(
+      LoginActions.loginRequest({
+        email: 'anton.penchev@gmail.com',
+        password: 'parola1234'
+      })
+    )
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
