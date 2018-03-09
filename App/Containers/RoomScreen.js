@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import RoomActions, { RoomSelectors } from '../Redux/RoomRedux'
 import { NavigationActions } from 'react-navigation'
-import TemperatureSensor from '../Components/devices/TemperatureSensor'
+import { NoDevices, TemperatureSensor } from '../Components/devices'
 
 // Styles
 import styles from './Styles/RoomScreenStyle'
@@ -20,10 +20,16 @@ class RoomScreen extends Component {
   getTemperatureSensor(room) {
     return room.devices.filter(d => d.type === 'T')[0]
   }
+  isEmpty(room) {
+    return true
+    // return room.devices.length === 0
+  }
   render() {
     const room = this.getCurrentRoom()
 
     const temperatureSensor = this.getTemperatureSensor(room)
+
+    if (this.isEmpty(room)) return <NoDevices />
 
     return (
       <View style={styles.container}>

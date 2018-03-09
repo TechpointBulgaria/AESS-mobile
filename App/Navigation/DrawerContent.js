@@ -7,13 +7,6 @@ import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
-const DrawerContent1 = () => (
-  <View style={{ flex: 1 }}>
-    <View style={{ flex: 1 }} />
-    <View style={{ height: 55 }} />
-  </View>
-)
-
 const DrawerContent = ({ username, navigation, logout, ...rest }) => (
   <View style={{ flex: 1 }}>
     <ScrollView style={{ flex: 1 }}>
