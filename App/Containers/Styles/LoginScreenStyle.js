@@ -5,8 +5,16 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    backgroundColor: Colors.frost,
-    justifyContent: 'center'
+    backgroundColor: Colors.app.light,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo: {
+    color: Colors.ricePaper,
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign:'center',
+    marginBottom: 40
   },
   errorMessage: {
     height: 80,
@@ -14,6 +22,22 @@ export default StyleSheet.create({
     marginBottom: 40
   },
   loginButton: {
-    marginTop: Metrics.marginVertical
+    marginTop: Metrics.doubleBaseMargin
+  },
+  loginButtonInner: {
+    backgroundColor: Colors.app.dark,
+    borderRadius: 4
+  },
+  loginButtonText: {
+    color: Colors.ricePaper,
+    fontWeight: 'bold'
+  },
+  input: {
+    color: Colors.ricePaper,
+    width: Metrics.screenWidth - 50
+  },
+  inputContainer: {},
+  label: {
+    color: Colors.ricePaper
   }
 })

@@ -4,6 +4,7 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import MenuButton from './MenuButton'
 import RoomScreen from '../Containers/RoomScreen'
 import DrawerContent from './DrawerContent'
+import { Colors } from '../Themes'
 
 const createRoomStack = ({ name, id }) => ({
   [name]: StackNavigator({
@@ -11,7 +12,11 @@ const createRoomStack = ({ name, id }) => ({
       screen: rest => <RoomScreen id={id} {...rest} />,
       navigationOptions: {
         title: name,
-        headerLeft: <MenuButton />
+        headerLeft: <MenuButton />,
+        headerTintColor: Colors.ricePaper,
+        headerStyle: {
+          backgroundColor: Colors.app.dark,
+        }
       }
     },
     initialRouteName: 'RoomScreen'
@@ -30,7 +35,9 @@ const Drawer = ({ rooms }) => {
   const Nav = DrawerNavigator(drawerItems, {
     contentComponent: DrawerContent,
     contentOptions: {
-      activeTintColor: 'red',
+      activeBackgroundColor: Colors.app.light,
+      inactiveTintColor: Colors.ricePaper,
+      activeTintColor: Colors.ricePaper,
       onItemPress: route => {
         console.log('hi')
       }

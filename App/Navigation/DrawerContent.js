@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
 const DrawerContent = ({ username, navigation, logout, ...rest }) => (
-  <View style={{ flex: 1 }}>
+  <View style={{ flex: 1, backgroundColor: Colors.app.dark }}>
     <ScrollView style={{ flex: 1 }}>
       <SafeAreaView forceInjet={{ top: 'always', horizontal: 'never' }}>
         <View
@@ -16,8 +16,9 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
             height: 100,
             justifyContent: 'center',
             alignItems: 'center',
-            borderBottomColor: Colors.border,
-            borderBottomWidth: 1
+            borderBottomColor: Colors.app.light,
+            borderBottomWidth: 1,
+            backgroundColor: Colors.app.dark
           }}
         >
           <Avatar
@@ -27,7 +28,15 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
             onPress={() => console.log('Works!')}
             activeOpacity={0.7}
           />
-          <Text>{username}</Text>
+          <Text
+            style={{
+              color: Colors.ricePaper,
+              marginTop: Metrics.marginVertical,
+              fontSize: 15
+            }}
+          >
+            {username}
+          </Text>
         </View>
         <DrawerItems navigation={navigation} {...rest} />
       </SafeAreaView>
@@ -35,7 +44,7 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
 
     <View
       style={{
-        borderTopColor: Colors.border,
+        borderTopColor: Colors.app.light,
         borderTopWidth: 1,
         padding: Metrics.doubleBaseMargin,
         height: 55
@@ -43,7 +52,8 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
     >
       <Text
         style={{
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          color: Colors.ricePaper
         }}
         onPress={() => {
           logout()

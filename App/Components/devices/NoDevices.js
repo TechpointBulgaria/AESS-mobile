@@ -8,10 +8,10 @@ export default () => (
     <Text
       style={{
         ...Fonts.style.h4,
-        color: Colors.coal
+        color: Colors.ricePaper
       }}
     >
-      No devices.
+      No devices
     </Text>
   </Widget>
 )

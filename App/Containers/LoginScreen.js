@@ -62,7 +62,10 @@ class LoginScreen extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView behavior="position">
-          <FormLabel>Username</FormLabel>
+          <Text style={styles.logo}>
+            MQTT Mobile
+          </Text>
+          <FormLabel labelStyle={styles.label}>Username</FormLabel>
           <FormInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -70,8 +73,10 @@ class LoginScreen extends Component {
             onChangeText={this.handleChangeUsername}
             onSubmitEditing={() => this.refs.password.focus()}
             returnKeyType="next"
+            inputStyle={styles.input}
+            containerStyle={styles.inputContainer}
           />
-          <FormLabel>Password</FormLabel>
+          <FormLabel labelStyle={styles.label}>Password</FormLabel>
           <FormInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -81,6 +86,7 @@ class LoginScreen extends Component {
             ref="password"
             returnKeyType="go"
             secureTextEntry
+            inputStyle={styles.input}
           />
           {error && (
             <FormValidationMessage style={styles.errorMessage}>
@@ -92,6 +98,8 @@ class LoginScreen extends Component {
             title="Login"
             onPress={this.handleLoginClick}
             loading={isFetching}
+            buttonStyle={styles.loginButtonInner}
+            textStyle={styles.loginButtonText}
           />
         </KeyboardAvoidingView>
       </View>

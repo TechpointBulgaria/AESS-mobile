@@ -9,7 +9,7 @@ export default ({ sensor }) => (
       style={{
         fontWeight: 'bold',
         fontSize: 60,
-        color: Colors.facebook
+        color: Colors.ricePaper
       }}
     >
       {sensor.state} °C

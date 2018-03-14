@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { withNavigation } from 'react-navigation'
-import { Metrics } from '../Themes'
+import { Metrics, Colors } from '../Themes'
 
 const MenuButton = ({ navigation }) => (
   <View
@@ -10,7 +10,11 @@ const MenuButton = ({ navigation }) => (
       padding: Metrics.padding
     }}
   >
-    <Icon name="menu" onPress={() => navigation.navigate('DrawerOpen')} />
+    <Icon
+      name="menu"
+      color={Colors.ricePaper}
+      onPress={() => navigation.navigate('DrawerOpen')}
+    />
   </View>
 )
 

@@ -9,7 +9,7 @@ const Button = ({ onPress, children }) => {
   return (
     <TouchableOpacity
       style={{
-        backgroundColor: '#bada55',
+        backgroundColor: Colors.app.dark,
         flex: 1,
         alignItems: 'center',
         height: 50,
@@ -36,23 +36,24 @@ export default ({ sensor, onPower, onMode, onPlus, onMinus }) => (
     }}
   >
     <Button onPress={onPower}>
-      <Icon inverse name="power" type="foundation" />
+      <Icon inverse name="power" type="foundation" color={Colors.ricePaper} />
     </Button>
     <Button onPress={onMode}>
       <Text
         style={{
           fontWeight: 'bold',
-          fontSize: 17
+          fontSize: 17,
+          color: Colors.ricePaper
         }}
       >
         M
       </Text>
     </Button>
     <Button onPress={onMinus}>
-      <Icon inverse name="minus" type="entypo" />
+      <Icon inverse name="minus" type="entypo" color={Colors.ricePaper} />
     </Button>
     <Button onPress={onPlus}>
-      <Icon inverse name="plus" type="entypo" />
+      <Icon inverse name="plus" type="entypo" color={Colors.ricePaper} />
     </Button>
   </View>
   // </Widget>

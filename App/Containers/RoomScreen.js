@@ -45,7 +45,12 @@ class RoomScreen extends Component {
     const { onPower, onMode, onPlus, onMinus } = this.props
     const room = this.getCurrentRoom()
 
-    if (this.isEmpty(room)) return <NoDevices />
+    if (this.isEmpty(room))
+      return (
+        <View style={styles.container}>
+          <NoDevices />
+        </View>
+      )
 
     const { temperatureSensor, acController } = this.partitionDevices(room)
 

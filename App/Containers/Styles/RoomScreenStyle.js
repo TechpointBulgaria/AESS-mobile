@@ -5,7 +5,7 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    backgroundColor: Colors.frost,
+    backgroundColor: Colors.app.light,
     padding: Metrics.padding
   }
 })
