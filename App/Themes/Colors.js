@@ -1,8 +1,9 @@
 const themes = {
-  blue: {
-    light: '#517fa4',
-    dark: '#243949'
-  }
+  // blue: {
+  //   light: '#517fa4',
+  //   dark: '#243949',
+  //   white: 
+  // }
 }
 
 const colors = {
@@ -28,10 +29,16 @@ const colors = {
   eggplant: '#251a34',
   border: '#483F53',
   banner: '#5F3E63',
-  text: '#E0D7E5',
-
-  app: themes.blue
-
+  text: '#E0D7E5'
 }
 
-export default colors
+const app = {
+    light: '#517fa4',
+    dark: '#243949',
+    white: 'rgba(255,255,255, 0.85)'
+}
+
+export default {
+  ...colors,
+  app
+}

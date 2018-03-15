@@ -30,7 +30,7 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
           />
           <Text
             style={{
-              color: Colors.ricePaper,
+              color: Colors.app.white,
               marginTop: Metrics.marginVertical,
               fontSize: 15
             }}
@@ -53,7 +53,7 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
       <Text
         style={{
           fontWeight: 'bold',
-          color: Colors.ricePaper
+          color: Colors.app.white
         }}
         onPress={() => {
           logout()

@@ -36,24 +36,24 @@ export default ({ sensor, onPower, onMode, onPlus, onMinus }) => (
     }}
   >
     <Button onPress={onPower}>
-      <Icon inverse name="power" type="foundation" color={Colors.ricePaper} />
+      <Icon inverse name="power" type="foundation" color={Colors.app.white} />
     </Button>
     <Button onPress={onMode}>
       <Text
         style={{
           fontWeight: 'bold',
           fontSize: 17,
-          color: Colors.ricePaper
+          color: Colors.app.white
         }}
       >
         M
       </Text>
     </Button>
     <Button onPress={onMinus}>
-      <Icon inverse name="minus" type="entypo" color={Colors.ricePaper} />
+      <Icon inverse name="minus" type="entypo" color={Colors.app.white} />
     </Button>
     <Button onPress={onPlus}>
-      <Icon inverse name="plus" type="entypo" color={Colors.ricePaper} />
+      <Icon inverse name="plus" type="entypo" color={Colors.app.white} />
     </Button>
   </View>
   // </Widget>

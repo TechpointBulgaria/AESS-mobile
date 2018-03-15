@@ -66,7 +66,7 @@ const ApplicationStyles = {
   sectionTitle: {
     ...Fonts.style.h4,
     color: Colors.coal,
-    backgroundColor: Colors.ricePaper,
+    backgroundColor: Colors.app.white,
     padding: Metrics.smallMargin,
     marginTop: Metrics.smallMargin,
     marginHorizontal: Metrics.baseMargin,

@@ -8,7 +8,7 @@ export default () => (
     <Text
       style={{
         ...Fonts.style.h4,
-        color: Colors.ricePaper
+        color: Colors.app.white
       }}
     >
       No devices

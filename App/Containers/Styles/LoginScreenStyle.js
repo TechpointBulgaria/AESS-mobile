@@ -10,7 +10,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   logo: {
-    color: Colors.ricePaper,
+    color: Colors.app.white,
     fontSize: 40,
     fontWeight: 'bold',
     textAlign:'center',
@@ -29,15 +29,15 @@ export default StyleSheet.create({
     borderRadius: 4
   },
   loginButtonText: {
-    color: Colors.ricePaper,
+    color: Colors.app.white,
     fontWeight: 'bold'
   },
   input: {
-    color: Colors.ricePaper,
+    color: Colors.app.white,
     width: Metrics.screenWidth - 50
   },
   inputContainer: {},
   label: {
-    color: Colors.ricePaper
+    color: Colors.app.white
   }
 })

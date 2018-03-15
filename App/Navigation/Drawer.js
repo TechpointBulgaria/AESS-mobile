@@ -13,7 +13,7 @@ const createRoomStack = ({ name, id }) => ({
       navigationOptions: {
         title: name,
         headerLeft: <MenuButton />,
-        headerTintColor: Colors.ricePaper,
+        headerTintColor: Colors.app.white,
         headerStyle: {
           backgroundColor: Colors.app.dark,
         }
@@ -36,8 +36,8 @@ const Drawer = ({ rooms }) => {
     contentComponent: DrawerContent,
     contentOptions: {
       activeBackgroundColor: Colors.app.light,
-      inactiveTintColor: Colors.ricePaper,
-      activeTintColor: Colors.ricePaper,
+      inactiveTintColor: Colors.app.white,
+      activeTintColor: Colors.app.white,
       onItemPress: route => {
         console.log('hi')
       }

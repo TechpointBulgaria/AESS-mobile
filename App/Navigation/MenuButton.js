@@ -12,7 +12,7 @@ const MenuButton = ({ navigation }) => (
   >
     <Icon
       name="menu"
-      color={Colors.ricePaper}
+      color={Colors.app.white}
       onPress={() => navigation.navigate('DrawerOpen')}
     />
   </View>
