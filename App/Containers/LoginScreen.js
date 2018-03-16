@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
-import LinearGradient from 'react-native-linear-gradient'
+import ScreenBackground from '../Components/ScreenBackground'
 
 import {
   Button,
@@ -60,9 +60,8 @@ class LoginScreen extends Component {
 
   render() {
     const { isFetching, error } = this.props
-    const colors = ['#243949', '#517fa4']
     return (
-      <LinearGradient colors={colors} style={styles.container}>
+      <ScreenBackground>
         <KeyboardAvoidingView behavior="position">
           <Text style={styles.logo}>MQTT Mobile</Text>
           <FormLabel labelStyle={styles.label}>Username</FormLabel>
@@ -102,7 +101,7 @@ class LoginScreen extends Component {
             textStyle={styles.loginButtonText}
           />
         </KeyboardAvoidingView>
-      </LinearGradient>
+      </ScreenBackground>
     )
   }
 }
