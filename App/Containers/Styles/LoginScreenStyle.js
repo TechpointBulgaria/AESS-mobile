@@ -1,20 +1,21 @@
-import { StyleSheet } from "react-native";
-import { ApplicationStyles, Colors, Metrics } from "../../Themes/";
+import { StyleSheet } from 'react-native'
+import { ApplicationStyles, Colors, Metrics } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
     backgroundColor: Colors.app.light,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   logo: {
     color: Colors.app.white,
     fontSize: 40,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 40
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 40,
+    backgroundColor: 'transparent'
   },
   errorMessage: {
     height: 80,
@@ -30,15 +31,17 @@ export default StyleSheet.create({
   },
   loginButtonText: {
     color: Colors.app.white,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   input: {
     color: Colors.app.white,
     width: Metrics.screenWidth - 50,
-    backgroundColor: "rgba(255,255,255, 0.1)"
+    backgroundColor: 'rgba(255,255,255, 0.1)'
   },
-  inputContainer: {},
   label: {
-    color: Colors.app.white
+    color: Colors.app.white,
+    fontSize: 15,
+    marginBottom: 5,
+    backgroundColor: 'transparent'
   }
-});
+})
