@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, KeyboardAvoidingView } from 'react-native'
+import { Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
 import ScreenBackground from '../Components/ScreenBackground'

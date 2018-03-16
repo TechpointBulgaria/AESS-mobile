@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, KeyboardAvoidingView, Button } from 'react-native'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
 import RoomActions, { RoomSelectors } from '../Redux/RoomRedux'
 import { NavigationActions } from 'react-navigation'
+import ScreenBackground from '../Components/ScreenBackground'
 import {
   NoDevices,
   TemperatureSensor,
@@ -47,15 +47,15 @@ class RoomScreen extends Component {
 
     if (this.isEmpty(room))
       return (
-        <View style={styles.container}>
+        <ScreenBackground>
           <NoDevices />
-        </View>
+        </ScreenBackground>
       )
 
     const { temperatureSensor, acController } = this.partitionDevices(room)
 
     return (
-      <View style={styles.container}>
+      <ScreenBackground style={styles.container}>
         {/* <KeyboardAvoidingView behavior="position"> */}
         {temperatureSensor && <TemperatureSensor sensor={temperatureSensor} />}
         <Graph />
@@ -69,7 +69,7 @@ class RoomScreen extends Component {
           />
         )}
         {/* </KeyboardAvoidingView> */}
-      </View>
+      </ScreenBackground>
     )
   }
 }

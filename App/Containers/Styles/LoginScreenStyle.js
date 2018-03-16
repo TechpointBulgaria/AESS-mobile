@@ -30,7 +30,7 @@ export default StyleSheet.create({
   input: {
     color: Colors.app.white,
     width: Metrics.screenWidth - 50,
-    backgroundColor: 'rgba(255,255,255, 0.1)'
+    backgroundColor: Colors.app.transparent
   },
   label: {
     color: Colors.app.white,
