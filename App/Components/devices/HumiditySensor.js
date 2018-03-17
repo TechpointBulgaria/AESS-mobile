@@ -1,5 +1,11 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableHighlight,
+  TouchableHighlightStatic
+} from 'react-native'
 import { Colors } from '../../Themes'
 import Widget from './Widget'
 
@@ -13,7 +19,9 @@ const styles = StyleSheet.create({
 
 const HumiditySensor = ({ sensor }) => (
   <Widget flex={1}>
-    <Text style={styles.text}>Humidity: {sensor.state}%</Text>
+    <TouchableOpacity>
+      <Text style={styles.text}>Humidity: {sensor.state}%</Text>
+    </TouchableOpacity>
   </Widget>
 )
 
