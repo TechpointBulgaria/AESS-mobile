@@ -6,16 +6,24 @@ import { NavigationActions } from 'react-navigation'
 import ScreenBackground from '../Components/ScreenBackground'
 import {
   ACController,
-  Graph,
   HumiditySensor,
   NoDevices,
   TemperatureSensor
 } from '../Components/devices'
+import GraphContainer from './GraphContainer'
+import HistoryActions from '../Redux/HistoryRedux'
 
 // Styles
 import styles from './Styles/RoomScreenStyle'
 
 class RoomScreen extends Component {
+  componentWillMount() {
+    const room = this.getCurrentRoom()
+    const { selectDevice } = this.props
+    const ts = room.devices.filter(d => d.type === 'T')[0]
+    selectDevice(ts.id)
+  }
+
   getCurrentRoom() {
     const { id, rooms } = this.props
     return rooms.filter(room => room.id === id)[0]
@@ -43,7 +51,7 @@ class RoomScreen extends Component {
   }
 
   render() {
-    const { onPower, onMode, onPlus, onMinus } = this.props
+    const { onPower, onMode, onPlus, onMinus, selectDevice } = this.props
     const room = this.getCurrentRoom()
 
     if (this.isEmpty(room))
@@ -58,13 +66,20 @@ class RoomScreen extends Component {
     return (
       <ScreenBackground style={styles.container}>
         {/* <KeyboardAvoidingView behavior="position"> */}
-        {temperatureSensor && <TemperatureSensor sensor={temperatureSensor} />}
+        {temperatureSensor && (
+          <TemperatureSensor
+            onPress={selectDevice}
+            sensor={temperatureSensor}
+          />
+        )}
         <HumiditySensor
+          onPress={selectDevice}
           sensor={{
+            id: 99,
             state: 77
           }}
         />
-        <Graph />
+        <GraphContainer />
         {acController && (
           <ACController
             sensor={acController}
@@ -89,7 +104,8 @@ const mapDispatchToProps = dispatch => ({
   onPower: () => alert('power'),
   onMode: () => alert('mode'),
   onPlus: () => alert('plus'),
-  onMinus: () => alert('minus')
+  onMinus: () => alert('minus'),
+  selectDevice: id => dispatch(HistoryActions.historySelectDevice(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen)

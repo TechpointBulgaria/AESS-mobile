@@ -10,6 +10,7 @@ import API from '../Services/MyApi'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { RoomTypes } from '../Redux/RoomRedux'
 import { SplashTypes } from '../Redux/SplashRedux'
+import { HistoryTypes } from '../Redux/HistoryRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -18,6 +19,7 @@ import { SplashTypes } from '../Redux/SplashRedux'
 import { login } from './LoginSagas'
 import { getRooms } from './RoomSagas'
 import { init } from './SplashSagas'
+import { fetchDeviceHistory } from './HistorySagas'
 
 /* ------------- API ------------- */
 
@@ -37,6 +39,7 @@ export default function* root() {
     // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(RoomTypes.ROOM_REQUEST, getRooms, api),
-    takeLatest(SplashTypes.SPLASH_REQUEST, init, api)
+    takeLatest(SplashTypes.SPLASH_REQUEST, init, api),
+    takeLatest(HistoryTypes.HISTORY_REQUEST, fetchDeviceHistory, api)
   ])
 }

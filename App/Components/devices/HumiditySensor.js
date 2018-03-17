@@ -17,9 +17,12 @@ const styles = StyleSheet.create({
   }
 })
 
-const HumiditySensor = ({ sensor }) => (
+const HumiditySensor = ({ sensor, onPress }) => (
   <Widget flex={1}>
-    <TouchableOpacity activeOpacity={Metrics.activeOpacity}>
+    <TouchableOpacity
+      onPress={() => onPress(sensor.id)}
+      activeOpacity={Metrics.activeOpacity}
+    >
       <Text style={styles.text}>Humidity: {sensor.state}%</Text>
     </TouchableOpacity>
   </Widget>

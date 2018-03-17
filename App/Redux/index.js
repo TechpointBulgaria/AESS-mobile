@@ -11,7 +11,8 @@ export const reducers = combineReducers({
   // nav: require('./NavigationRedux').reducer,
   rooms: require('./RoomRedux').reducer,
   search: require('./SearchRedux').reducer,
-  splash: require('./SplashRedux').reducer
+  splash: require('./SplashRedux').reducer,
+  history: require('./HistoryRedux').reducer
 })
 
 export default () => {

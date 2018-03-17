@@ -3,9 +3,12 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { Fonts, Colors, Metrics } from '../../Themes'
 import Widget from './Widget'
 
-export default ({ sensor }) => (
+export default ({ sensor, onPress }) => (
   <Widget flex={3}>
-    <TouchableOpacity activeOpacity={Metrics.activeOpacity}>
+    <TouchableOpacity
+      onPress={() => onPress(sensor.id)}
+      activeOpacity={Metrics.activeOpacity}
+    >
       <View
         style={{
           width: Metrics.screenWidth / 2,
