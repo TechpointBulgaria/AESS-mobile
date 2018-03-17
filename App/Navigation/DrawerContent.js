@@ -26,7 +26,7 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
             rounded
             source={Images.avatar}
             onPress={() => console.log('Works!')}
-            activeOpacity={0.7}
+            activeOpacity={Metrics.activeOpacity}
           />
           <Text
             style={{

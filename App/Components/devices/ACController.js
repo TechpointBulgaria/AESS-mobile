@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements'
 const Button = ({ onPress, children }) => {
   return (
     <TouchableOpacity
+      activeOpacity={Metrics.activeOpacity}
       style={{
         backgroundColor: Colors.app.dark,
         flex: 1,

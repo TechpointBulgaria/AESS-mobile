@@ -3,19 +3,6 @@ import { ApplicationStyles, Colors, Metrics } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
-  logo: {
-    color: Colors.app.white,
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 40,
-    backgroundColor: 'transparent'
-  },
-  errorMessage: {
-    height: 80,
-    marginTop: 40,
-    marginBottom: 40
-  },
   loginButton: {
     marginTop: Metrics.doubleBaseMargin
   },
@@ -30,7 +17,8 @@ export default StyleSheet.create({
   input: {
     color: Colors.app.white,
     width: Metrics.screenWidth - 50,
-    backgroundColor: Colors.app.transparent
+    backgroundColor: Colors.app.transparent,
+    padding: 5
   },
   label: {
     color: Colors.app.white,

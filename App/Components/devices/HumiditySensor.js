@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
   TouchableHighlightStatic
 } from 'react-native'
-import { Colors } from '../../Themes'
+import { Colors, Metrics } from '../../Themes'
 import Widget from './Widget'
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 const HumiditySensor = ({ sensor }) => (
   <Widget flex={1}>
-    <TouchableOpacity>
+    <TouchableOpacity activeOpacity={Metrics.activeOpacity}>
       <Text style={styles.text}>Humidity: {sensor.state}%</Text>
     </TouchableOpacity>
   </Widget>

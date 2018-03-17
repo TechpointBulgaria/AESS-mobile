@@ -15,6 +15,7 @@ import LoginActions from '../Redux/LoginRedux'
 import RoomActions from '../Redux/RoomRedux'
 
 export function* login(api, action) {
+  yield put(LoginActions.clearError())
   const { data } = action
   const response = yield call(api.login, data)
 

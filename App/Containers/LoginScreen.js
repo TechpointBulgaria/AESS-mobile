@@ -3,6 +3,8 @@ import { Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
 import ScreenBackground from '../Components/ScreenBackground'
+import Logo from '../Components/Logo'
+import { Colors, Metrics } from '../Themes'
 
 import {
   Button,
@@ -48,30 +50,45 @@ class LoginScreen extends Component {
     })
   }
 
+  navigateIfLoggedIn(newProps) {
+    const { navigation } = this.props
+    if (this.props.isLoggedIn || (newProps && newProps.isLoggedIn))
+      navigation.navigate('App')
+  }
+
+  feedbackIfError(newProps) {
+    if (newProps.error) {
+      this.refs.password.shake()
+      this.refs.username.shake()
+    }
+  }
+
   componentDidMount() {
-    const { isLoggedIn, navigation } = this.props
-    if (isLoggedIn) navigation.navigate('App')
+    this.props.clearError()
+    this.navigateIfLoggedIn()
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isLoggedIn && nextProps.isLoggedIn)
-      this.props.navigation.navigate('App')
+    this.navigateIfLoggedIn(nextProps)
+    this.feedbackIfError(nextProps)
   }
 
   render() {
-    const { isFetching, error } = this.props
+    const { isFetching } = this.props
     return (
       <ScreenBackground>
         <KeyboardAvoidingView behavior="position">
-          <Text style={styles.logo}>MQTT Mobile</Text>
+          <Logo />
           <FormLabel labelStyle={styles.label}>Username</FormLabel>
           <FormInput
+            autoFocus={true}
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="email-address"
             onChangeText={this.handleChangeUsername}
             onSubmitEditing={() => this.refs.password.focus()}
             returnKeyType="next"
+            ref="username"
             inputStyle={styles.input}
             containerStyle={styles.inputContainer}
           />
@@ -87,11 +104,6 @@ class LoginScreen extends Component {
             secureTextEntry
             inputStyle={styles.input}
           />
-          {error && (
-            <FormValidationMessage style={styles.errorMessage}>
-              Wrong username or password!
-            </FormValidationMessage>
-          )}
           <Button
             style={styles.loginButton}
             title="Login"
@@ -113,14 +125,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  // login: credentials => dispatch(LoginActions.loginRequest(credentials))
-  login: credentials =>
-    dispatch(
-      LoginActions.loginRequest({
-        email: 'anton.penchev@gmail.com',
-        password: 'parola1234'
-      })
-    )
+  login: credentials => dispatch(LoginActions.loginRequest(credentials)),
+  clearError: () => dispatch(LoginActions.clearError())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

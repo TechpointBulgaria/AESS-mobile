@@ -4,6 +4,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
+  clearError: null,
   loginRequest: ['data'],
   loginSuccess: ['payload'],
   loginFailure: null,
@@ -34,6 +35,8 @@ export const LoginSelectors = {
 }
 
 /* ------------- Reducers ------------- */
+
+export const clearError = state => state.merge({ error: null })
 
 // request the data from an api
 export const request = (state, { data }) =>
@@ -69,5 +72,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_REQUEST]: request,
   [Types.LOGIN_SUCCESS]: success,
   [Types.LOGIN_FAILURE]: failure,
-  [Types.LOGOUT]: logout
+  [Types.LOGOUT]: logout,
+  [Types.CLEAR_ERROR]: clearError
 })

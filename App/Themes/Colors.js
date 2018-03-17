@@ -34,7 +34,7 @@ const colors = {
 
 const app = {
   light: '#517fa4',
-  light: '#E96D71',
+  // light: '#E96D71',
   dark: '#243949',
   // dark: '#0ba360',
   white: 'rgba(255,255,255, 0.85)',

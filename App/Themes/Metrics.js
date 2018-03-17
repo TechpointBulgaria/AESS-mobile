@@ -29,7 +29,8 @@ const metrics = {
     medium: 40,
     large: 60,
     logo: 200
-  }
+  },
+  activeOpacity: 0.7
 }
 
 export default metrics

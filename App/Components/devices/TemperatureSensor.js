@@ -5,7 +5,7 @@ import Widget from './Widget'
 
 export default ({ sensor }) => (
   <Widget flex={3}>
-    <TouchableOpacity>
+    <TouchableOpacity activeOpacity={Metrics.activeOpacity}>
       <View
         style={{
           width: Metrics.screenWidth / 2,

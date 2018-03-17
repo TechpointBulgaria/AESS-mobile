@@ -3,9 +3,8 @@ import { View, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import SplashActions, { SplashSelectors } from '../Redux/SplashRedux'
 import { NavigationActions } from 'react-navigation'
-
-// Styles
-import styles from './Styles/SplashScreenStyle'
+import ScreenBackground from '../Components/ScreenBackground'
+import Logo from '../Components/Logo'
 
 class SplashScreen extends Component {
   componentDidMount() {
@@ -23,11 +22,11 @@ class SplashScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScreenBackground>
         <KeyboardAvoidingView behavior="position">
-          <Text>Splash Screen</Text>
+          <Logo />
         </KeyboardAvoidingView>
-      </View>
+      </ScreenBackground>
     )
   }
 }
