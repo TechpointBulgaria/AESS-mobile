@@ -5,10 +5,11 @@ import RoomActions, { RoomSelectors } from '../Redux/RoomRedux'
 import { NavigationActions } from 'react-navigation'
 import ScreenBackground from '../Components/ScreenBackground'
 import {
-  NoDevices,
-  TemperatureSensor,
   ACController,
-  Graph
+  Graph,
+  HumiditySensor,
+  NoDevices,
+  TemperatureSensor
 } from '../Components/devices'
 
 // Styles
@@ -58,6 +59,11 @@ class RoomScreen extends Component {
       <ScreenBackground style={styles.container}>
         {/* <KeyboardAvoidingView behavior="position"> */}
         {temperatureSensor && <TemperatureSensor sensor={temperatureSensor} />}
+        <HumiditySensor
+          sensor={{
+            state: 77
+          }}
+        />
         <Graph />
         {acController && (
           <ACController
