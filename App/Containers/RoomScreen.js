@@ -21,7 +21,7 @@ class RoomScreen extends Component {
     const room = this.getCurrentRoom()
     const { selectDevice } = this.props
     const ts = room.devices.filter(d => d.type === 'T')[0]
-    selectDevice(ts.id)
+    if (ts) selectDevice(ts.id)
   }
 
   getCurrentRoom() {
