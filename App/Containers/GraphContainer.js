@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Graph from '../Components/devices/Graph'
 import HistoryActions, { HistorySelectors } from '../Redux/HistoryRedux'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Colors, Metrics } from '../Themes'
 import Widget from '../Components/devices/Widget'
 
@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
 const GraphLoading = () => (
   <Widget flex={3}>
     <View style={styles.view}>
-      <Text style={styles.text}>Loading...</Text>
+      <ActivityIndicator size="large" color={Colors.app.white} />
     </View>
   </Widget>
 )
 const GraphError = () => (
   <Widget flex={3}>
     <View style={styles.view}>
-      <Text style={styles.text}>Error</Text>
+      <Text style={styles.text}>Could not get data from server</Text>
     </View>
   </Widget>
 )
@@ -48,7 +48,7 @@ class GraphContainer extends Component {
   }
 
   render() {
-    const { device, selectedDeviceId } = this.props
+    const { device } = this.props
 
     if (!device) {
       console.log('still dont have device?')
