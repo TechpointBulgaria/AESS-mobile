@@ -3,24 +3,47 @@ import { persistReducer } from 'redux-persist'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 import ReduxPersist from '../Config/ReduxPersist'
+import Immutable from 'seamless-immutable'
+
+import {
+  reducer as loginReducer,
+  INITIAL_STATE as loginState
+} from './LoginRedux'
+import { reducer as roomReducer, INITIAL_STATE as roomState } from './RoomRedux'
+import {
+  reducer as splashReducer,
+  INITIAL_STATE as splashState
+} from './SplashRedux'
+import {
+  reducer as historyReducer,
+  INITIAL_STATE as historyState
+} from './HistoryRedux'
 
 /* ------------- Assemble The Reducers ------------- */
-export const reducers = combineReducers({
-  github: require('./GithubRedux').reducer,
-  login: require('./LoginRedux').reducer,
-  // nav: require('./NavigationRedux').reducer,
-  rooms: require('./RoomRedux').reducer,
-  search: require('./SearchRedux').reducer,
-  splash: require('./SplashRedux').reducer,
-  history: require('./HistoryRedux').reducer
+export const appReducers = combineReducers({
+  login: loginReducer,
+  rooms: roomReducer,
+  splash: splashReducer,
+  history: historyReducer
 })
 
+const initialState = {
+  login: loginState,
+  rooms: roomState,
+  splash: splashState,
+  history: historyState
+}
+
+//handle logout -> clear all the state
+const rootReducer = (state, action) =>
+  action.type === 'LOGOUT' ? initialState : appReducers(state, action)
+
 export default () => {
-  let finalReducers = reducers
+  let finalReducers = rootReducer
   // If rehydration is on use persistReducer otherwise default combineReducers
   if (ReduxPersist.active) {
     const persistConfig = ReduxPersist.storeConfig
-    finalReducers = persistReducer(persistConfig, reducers)
+    finalReducers = persistReducer(persistConfig, rootReducer)
   }
 
   let { store, sagasManager, sagaMiddleware } = configureStore(

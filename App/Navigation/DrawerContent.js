@@ -71,7 +71,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(LoginActions.logout())
+  logout: () => dispatch({ type: 'LOGOUT' })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
