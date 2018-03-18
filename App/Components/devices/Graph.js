@@ -210,47 +210,47 @@ const theme = {
 }
 
 export default ({ sensor }) => (
-  <Widget flex={3}>
-    {/* <VictoryChart
-      theme={theme}
-      padding={{
-        top: 50,
-        right: 20,
-        bottom: 60,
-        left: 50
-      }}
-      width={Metrics.screenWidth}
-      height={180}
-      style={{
-        parent: {
-          backgroundColor: Colors.app.transparent
-          // borderWidth: 1,
-          // borderColor: Colors.app.dark
-        }
-      }}
-      domainPadding={{ x: [0, 0], y: [5, 5] }}
-    // theme={VictoryTheme.material}
-    > */}
-    <View
-      style={{
-        backgroundColor: Colors.app.transparent,
-        height: Metrics.screenWidth / 2,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <VictoryLine
-        interpolation="monotoneX"
-        data={sensor}
-        height={Metrics.screenWidth / 2}
-        style={{
-          data: {
-            stroke: Colors.app.white,
-            strokeWidth: '2'
-          }
-        }}
-      />
-    </View>
-    {/* </VictoryChart> */}
-  </Widget>
+  // <Widget flex={3}>
+  //   {/* <VictoryChart
+  //     theme={theme}
+  //     padding={{
+  //       top: 50,
+  //       right: 20,
+  //       bottom: 60,
+  //       left: 50
+  //     }}
+  //     width={Metrics.screenWidth}
+  //     height={180}
+  //     style={{
+  //       parent: {
+  //         backgroundColor: Colors.app.transparent
+  //         // borderWidth: 1,
+  //         // borderColor: Colors.app.dark
+  //       }
+  //     }}
+  //     domainPadding={{ x: [0, 0], y: [5, 5] }}
+  //   // theme={VictoryTheme.material}
+  //   > */}
+  //   <View
+  //     style={{
+  //       backgroundColor: Colors.app.transparent,
+  //       height: Metrics.screenWidth / 2,
+  //       alignItems: 'center',
+  //       justifyContent: 'center'
+  //     }}
+  //   >
+  //   </View>
+  //   {/* </VictoryChart> */}
+  // </Widget>
+  <VictoryLine
+    interpolation="monotoneX"
+    data={sensor}
+    height={Metrics.screenWidth / 2}
+    style={{
+      data: {
+        stroke: Colors.app.white,
+        strokeWidth: '2'
+      }
+    }}
+  />
 )

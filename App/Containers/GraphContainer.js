@@ -20,21 +20,6 @@ const styles = StyleSheet.create({
   }
 })
 
-const GraphLoading = () => (
-  <Widget flex={3}>
-    <View style={styles.view}>
-      <ActivityIndicator size="large" color={Colors.app.white} />
-    </View>
-  </Widget>
-)
-const GraphError = () => (
-  <Widget flex={3}>
-    <View style={styles.view}>
-      <Text style={styles.text}>Could not get data from server</Text>
-    </View>
-  </Widget>
-)
-
 class GraphContainer extends Component {
   componentWillMount() {
     if (!this.props.device) {
@@ -47,19 +32,26 @@ class GraphContainer extends Component {
     }
   }
 
+  loadingView = <ActivityIndicator size="large" color={Colors.app.white} />
+  errorView = <Text style={styles.text}>Could not get data from server</Text>
+
   render() {
     const { device } = this.props
 
-    if (!device) {
-      console.log('still dont have device?')
-      return null
-    }
+    const Comp = device
+      ? (() => {
+          const { error, fetching, payload } = device
+          if (fetching) return this.loadingView
+          if (error) return this.errorView
+          if (payload) return <Graph sensor={payload} />
+        })()
+      : null
 
-    const { error, fetching, payload } = device
-
-    if (fetching) return <GraphLoading />
-    if (error) return <GraphError />
-    if (payload) return <Graph sensor={payload} />
+    return (
+      <Widget flex={3}>
+        <View style={styles.view}>{Comp}</View>
+      </Widget>
+    )
   }
 }
 
