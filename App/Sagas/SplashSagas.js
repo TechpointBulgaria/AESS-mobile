@@ -18,8 +18,8 @@ import RoomActions from '../Redux/RoomRedux'
 import { LoginSelectors } from '../Redux/LoginRedux'
 
 function* waitRandomTime() {
-  yield call(delay, 0)
-  // yield call(delay, 800 + Math.random() * 800)
+  // yield call(delay, 0)
+  yield call(delay, 800 + Math.random() * 800)
 }
 
 export function* init(api, action) {
