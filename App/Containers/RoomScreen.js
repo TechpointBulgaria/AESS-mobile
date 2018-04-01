@@ -8,7 +8,8 @@ import {
   ACController,
   HumiditySensor,
   NoDevices,
-  TemperatureSensor
+  TemperatureSensor,
+  SecondaryDevices
 } from '../Components/devices'
 import GraphContainer from './GraphContainer'
 import HistoryActions from '../Redux/HistoryRedux'
@@ -36,6 +37,11 @@ class RoomScreen extends Component {
       : null
   }
 
+  getSecondaryDevices(devices) {
+    console.log('getsede', devices)
+    return devices.filter(({ type }) => type === 'L' || type === 'M')
+  }
+
   isEmpty(room) {
     return room.devices.length === 0
   }
@@ -59,6 +65,13 @@ class RoomScreen extends Component {
   render() {
     const { room, onPower, onMode, onPlus, onMinus, selectDevice } = this.props
 
+    // //DEBUG
+    // return (
+    //   <ScreenBackground>
+    //     <Text>{JSON.stringify(room, null, 2)}</Text>
+    //   </ScreenBackground>
+    // )
+
     if (this.isEmpty(room))
       return (
         <ScreenBackground>
@@ -69,6 +82,8 @@ class RoomScreen extends Component {
     const devices = this.partitionDevices(room)
     const historyDevice = this.getHistoryDevice(devices)
     const { temperatureSensor, humiditySensor, acController } = devices
+    const secondaryDevices = this.getSecondaryDevices(room.devices)
+    console.log('sd', secondaryDevices)
 
     return (
       <ScreenBackground style={styles.container}>
@@ -83,6 +98,9 @@ class RoomScreen extends Component {
           <HumiditySensor onPress={selectDevice} sensor={humiditySensor} />
         )}
         {historyDevice && <GraphContainer />}
+        {secondaryDevices.length && (
+          <SecondaryDevices devices={secondaryDevices} />
+        )}
         {acController && (
           <ACController
             sensor={acController}

@@ -7,7 +7,8 @@ export default ({ flex, children }) => (
     style={{
       flex,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      alignSelf: 'stretch'
       // borderWidth: 1
     }}
   >
