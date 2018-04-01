@@ -6,7 +6,7 @@ import Widget from './Widget'
 export default ({ sensor, onPress }) => (
   <Widget flex={3}>
     <TouchableOpacity
-      onPress={() => onPress(sensor.id)}
+      onPress={() => onPress(sensor.deviceId)}
       activeOpacity={Metrics.activeOpacity}
     >
       <View

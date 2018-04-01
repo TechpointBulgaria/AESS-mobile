@@ -21,7 +21,7 @@ class RoomScreen extends Component {
     const room = this.getCurrentRoom()
     const { selectDevice } = this.props
     const ts = room.devices.filter(d => d.type === 'T')[0]
-    if (ts) selectDevice(ts.id)
+    if (ts) selectDevice(ts.deviceId)
   }
 
   getCurrentRoom() {
@@ -43,7 +43,8 @@ class RoomScreen extends Component {
         ...obj,
         [{
           T: 'temperatureSensor',
-          S: 'acController'
+          S: 'acController',
+          H: 'humiditySensor'
         }[device.type]]: device
       }),
       {}
@@ -61,7 +62,11 @@ class RoomScreen extends Component {
         </ScreenBackground>
       )
 
-    const { temperatureSensor, acController } = this.partitionDevices(room)
+    const {
+      temperatureSensor,
+      humiditySensor,
+      acController
+    } = this.partitionDevices(room)
 
     return (
       <ScreenBackground style={styles.container}>
@@ -72,13 +77,9 @@ class RoomScreen extends Component {
             sensor={temperatureSensor}
           />
         )}
-        <HumiditySensor
-          onPress={selectDevice}
-          sensor={{
-            id: 99,
-            state: 77
-          }}
-        />
+        {humiditySensor && (
+          <HumiditySensor onPress={selectDevice} sensor={humiditySensor} />
+        )}
         <GraphContainer />
         {acController && (
           <ACController

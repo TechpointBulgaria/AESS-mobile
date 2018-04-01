@@ -13,6 +13,7 @@
 import { call, put } from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
 import RoomActions from '../Redux/RoomRedux'
+import transformRoomData from '../Transforms/TransformRoomData'
 
 export function* login(api, action) {
   yield put(LoginActions.clearError())
@@ -23,7 +24,7 @@ export function* login(api, action) {
     const { token } = response.data.result
     const roomsResponse = yield call(api.fetchRooms, token)
     if (roomsResponse.ok) {
-      yield put(RoomActions.roomSuccess(roomsResponse.data))
+      yield put(RoomActions.roomSuccess(transformRoomData(roomsResponse.data)))
     } else {
       yield put(RoomActions.roomFailure())
     }

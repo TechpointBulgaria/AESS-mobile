@@ -16,6 +16,7 @@ import SplashActions from '../Redux/SplashRedux'
 import { AsyncStorage } from 'react-native'
 import RoomActions from '../Redux/RoomRedux'
 import { LoginSelectors } from '../Redux/LoginRedux'
+import transformRoomData from '../Transforms/TransformRoomData'
 
 function* waitRandomTime() {
   // yield call(delay, 0)
@@ -41,7 +42,7 @@ export function* init(api, action) {
       call(waitRandomTime)
     ])
     if (roomsResponse.ok) {
-      yield put(RoomActions.roomSuccess(roomsResponse.data))
+      yield put(RoomActions.roomSuccess(transformRoomData(roomsResponse.data)))
     } else {
       yield put(RoomActions.roomFailure())
     }

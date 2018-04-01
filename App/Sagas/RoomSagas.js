@@ -14,6 +14,7 @@ import { call, put, select } from 'redux-saga/effects'
 import RoomActions from '../Redux/RoomRedux'
 import { LoginSelectors } from '../Redux/LoginRedux'
 // import { RoomSelectors } from '../Redux/RoomRedux'
+import transformRoomData from '../Transforms/TransformRoomData'
 
 export function* getRooms(api, action) {
   const token = yield select(LoginSelectors.getToken)
@@ -23,7 +24,7 @@ export function* getRooms(api, action) {
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(RoomActions.roomSuccess(response.data))
+    yield put(RoomActions.roomSuccess(transformRoomData(response.data)))
   } else {
     yield put(RoomActions.roomFailure())
   }
