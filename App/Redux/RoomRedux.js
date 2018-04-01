@@ -23,7 +23,8 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const RoomSelectors = {
-  getRooms: state => state.rooms.data
+  getRooms: state => state.rooms.data,
+  getRoomFancy: (id, state) => state.rooms.data.filter(r => r.id === id)[0]
 }
 
 /* ------------- Reducers ------------- */

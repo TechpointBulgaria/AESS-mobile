@@ -18,19 +18,22 @@ import styles from './Styles/RoomScreenStyle'
 
 class RoomScreen extends Component {
   componentWillMount() {
-    const room = this.getCurrentRoom()
-    const { selectDevice } = this.props
-    const ts = room.devices.filter(d => d.type === 'T')[0]
-    if (ts) selectDevice(ts.deviceId)
-  }
-
-  getCurrentRoom() {
-    const { id, rooms } = this.props
-    return rooms.filter(room => room.id === id)[0]
+    const { room, selectDevice } = this.props
+    const historyDevice = this.getHistoryDevice(this.partitionDevices(room))
+    historyDevice && selectDevice(historyDevice.deviceId)
   }
 
   getTemperatureSensor(room) {
     return room.devices.filter(d => d.type === 'T')[0]
+  }
+
+  getHistoryDevice(devices) {
+    const device = devices.temperatureSensor || devices.humiditySensor
+    return device
+      ? {
+          deviceId: device.deviceId
+        }
+      : null
   }
 
   isEmpty(room) {
@@ -44,7 +47,9 @@ class RoomScreen extends Component {
         [{
           T: 'temperatureSensor',
           S: 'acController',
-          H: 'humiditySensor'
+          H: 'humiditySensor',
+          L: 'lightSensor',
+          M: 'motionSensor'
         }[device.type]]: device
       }),
       {}
@@ -52,8 +57,7 @@ class RoomScreen extends Component {
   }
 
   render() {
-    const { onPower, onMode, onPlus, onMinus, selectDevice } = this.props
-    const room = this.getCurrentRoom()
+    const { room, onPower, onMode, onPlus, onMinus, selectDevice } = this.props
 
     if (this.isEmpty(room))
       return (
@@ -62,11 +66,9 @@ class RoomScreen extends Component {
         </ScreenBackground>
       )
 
-    const {
-      temperatureSensor,
-      humiditySensor,
-      acController
-    } = this.partitionDevices(room)
+    const devices = this.partitionDevices(room)
+    const historyDevice = this.getHistoryDevice(devices)
+    const { temperatureSensor, humiditySensor, acController } = devices
 
     return (
       <ScreenBackground style={styles.container}>
@@ -80,7 +82,7 @@ class RoomScreen extends Component {
         {humiditySensor && (
           <HumiditySensor onPress={selectDevice} sensor={humiditySensor} />
         )}
-        <GraphContainer />
+        {historyDevice && <GraphContainer />}
         {acController && (
           <ACController
             sensor={acController}
@@ -96,8 +98,8 @@ class RoomScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  rooms: RoomSelectors.getRooms(state)
+const mapStateToProps = (state, props) => ({
+  room: RoomSelectors.getRoomFancy(props.id, state)
 })
 
 const mapDispatchToProps = dispatch => ({
