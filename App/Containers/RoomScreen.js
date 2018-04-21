@@ -112,7 +112,7 @@ class RoomScreen extends Component {
           <HumiditySensor onPress={selectDevice} sensor={humiditySensor} />
         )}
         {historyDevice && <GraphContainer />}
-        {secondaryDevices.length && (
+        {secondaryDevices.length > 0 && (
           <SecondaryDevices devices={secondaryDevices} />
         )}
         {acController && (
