@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Widget from './Widget'
 import { Colors } from '../../Themes'
 import { DEVICE_TYPES } from '../../Constants'
+import Blink from '../Animated/Blink'
 
 const styles = StyleSheet.create({
   view: {
@@ -24,26 +25,41 @@ const styles = StyleSheet.create({
   }
 })
 
-const MotionSensor = ({ device }) => (
-  <View style={styles.device}>
-    <Text style={styles.title}>Motion</Text>
-    <Icon
-      color={Colors.app.white}
-      name={Number(device.state) ? 'radiobox-marked' : 'radiobox-blank'}
-      type="material-community"
-    />
-  </View>
+const BinarySensor = ({ device, icon, title }) => {
+  const state = Number(device.state)
+  return (
+    <View style={styles.device}>
+      <Text style={styles.title}>{title}</Text>
+      {state ? <Blink>{icon}</Blink> : icon}
+    </View>
+  )
+}
+const LightSensor = ({ device }) => (
+  <BinarySensor
+    device={device}
+    title={'Light'}
+    icon={
+      <Icon
+        color={Colors.app.white}
+        name={Number(device.state) ? 'lightbulb-on' : 'lightbulb-outline'}
+        type="material-community"
+      />
+    }
+  />
 )
 
-const LightSensor = ({ device }) => (
-  <View style={styles.device}>
-    <Text style={styles.title}>Light</Text>
-    <Icon
-      color={Colors.app.white}
-      name={Number(device.state) ? 'lightbulb-on' : 'lightbulb-outline'}
-      type="material-community"
-    />
-  </View>
+const MotionSensor = ({ device }) => (
+  <BinarySensor
+    device={device}
+    title={'Motion'}
+    icon={
+      <Icon
+        color={Colors.app.white}
+        name={Number(device.state) ? 'radiobox-marked' : 'radiobox-blank'}
+        type="material-community"
+      />
+    }
+  />
 )
 
 const createDevice = (device, i) => {
