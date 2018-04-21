@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Widget from './Widget'
 import { Colors } from '../../Themes'
+import { DEVICE_TYPES } from '../../Constants'
 
 const styles = StyleSheet.create({
   view: {
@@ -48,8 +49,8 @@ const LightSensor = ({ device }) => (
 const createDevice = (device, i) => {
   console.log(device)
   return {
-    M: <MotionSensor key={i} device={device} />,
-    L: <LightSensor key={i} device={device} />
+    [DEVICE_TYPES.MOTION]: <MotionSensor key={i} device={device} />,
+    [DEVICE_TYPES.LIGHT]: <LightSensor key={i} device={device} />
   }[device.type]
 }
 

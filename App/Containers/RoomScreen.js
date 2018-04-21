@@ -13,6 +13,7 @@ import {
 } from '../Components/devices'
 import GraphContainer from './GraphContainer'
 import HistoryActions from '../Redux/HistoryRedux'
+import { DEVICE_TYPES } from '../Constants'
 
 // Styles
 import styles from './Styles/RoomScreenStyle'
@@ -39,7 +40,9 @@ class RoomScreen extends Component {
 
   getSecondaryDevices(devices) {
     console.log('getsede', devices)
-    return devices.filter(({ type }) => type === 'L' || type === 'M')
+    return devices.filter(
+      ({ type }) => type === DEVICE_TYPES.LIGHT || type === DEVICE_TYPES.MOTION
+    )
   }
 
   isEmpty(room) {
@@ -51,11 +54,11 @@ class RoomScreen extends Component {
       (obj, device) => ({
         ...obj,
         [{
-          T: 'temperatureSensor',
+          [DEVICE_TYPES.TEMPERATURE]: 'temperatureSensor',
           S: 'acController',
-          H: 'humiditySensor',
-          L: 'lightSensor',
-          M: 'motionSensor'
+          [DEVICE_TYPES.HUMIDITY]: 'humiditySensor',
+          [DEVICE_TYPES.LIGHT]: 'lightSensor',
+          [DEVICE_TYPES.MOTION]: 'motionSensor'
         }[device.type]]: device
       }),
       {}
