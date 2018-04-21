@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, KeyboardAvoidingView, Button } from 'react-native'
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Button,
+  ScrollView
+} from 'react-native'
 import { connect } from 'react-redux'
 import RoomActions, { RoomSelectors } from '../Redux/RoomRedux'
 import { NavigationActions } from 'react-navigation'
@@ -68,13 +74,6 @@ class RoomScreen extends Component {
   render() {
     const { room, onPower, onMode, onPlus, onMinus, selectDevice } = this.props
 
-    // //DEBUG
-    // return (
-    //   <ScreenBackground>
-    //     <Text>{JSON.stringify(room, null, 2)}</Text>
-    //   </ScreenBackground>
-    // )
-
     if (this.isEmpty(room))
       return (
         <ScreenBackground>
@@ -87,6 +86,18 @@ class RoomScreen extends Component {
     const { temperatureSensor, humiditySensor, acController } = devices
     const secondaryDevices = this.getSecondaryDevices(room.devices)
     console.log('sd', secondaryDevices)
+
+    // //DEBUG
+    // return (
+    //   <ScreenBackground>
+    //     <ScrollView>
+    //       <Text>{JSON.stringify(room, null, 2)}</Text>
+    //       <Text>{JSON.stringify(devices, null, 2)}</Text>
+    //       <Text>{JSON.stringify(historyDevice, null, 2)}</Text>
+    //       <Text>{JSON.stringify(secondaryDevices, null, 2)}</Text>
+    //     </ScrollView>
+    //   </ScreenBackground>
+    // )
 
     return (
       <ScreenBackground style={styles.container}>
