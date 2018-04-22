@@ -29,7 +29,7 @@ export default ({ sensor, onPress }) => (
             backgroundColor: 'transparent'
           }}
         >
-          {sensor.state} °C
+          {sensor.state}°C
         </Text>
       </View>
     </TouchableOpacity>

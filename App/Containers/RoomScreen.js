@@ -31,10 +31,6 @@ class RoomScreen extends Component {
     historyDevice && selectDevice(historyDevice.deviceId)
   }
 
-  getTemperatureSensor(room) {
-    return room.devices.filter(d => d.type === 'T')[0]
-  }
-
   getHistoryDevice(devices) {
     const device = devices.temperatureSensor || devices.humiditySensor
     return device
@@ -45,10 +41,12 @@ class RoomScreen extends Component {
   }
 
   getSecondaryDevices(devices) {
-    console.log('getsede', devices)
-    return devices.filter(
-      ({ type }) => type === DEVICE_TYPES.LIGHT || type === DEVICE_TYPES.MOTION
-    )
+    const knownTypes = [
+      DEVICE_TYPES.LIGHT,
+      DEVICE_TYPES.MOTION,
+      DEVICE_TYPES.CURRENT
+    ]
+    return devices.filter(({ type }) => knownTypes.includes(type))
   }
 
   isEmpty(room) {

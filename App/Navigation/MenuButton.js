@@ -13,7 +13,7 @@ const MenuButton = ({ navigation }) => (
     <Icon
       name="menu"
       color={Colors.app.white}
-      underlayColor={Colors.app.transparent}
+      underlayColor={Colors.transparent}
       onPress={() => navigation.navigate('DrawerOpen')}
     />
   </View>
