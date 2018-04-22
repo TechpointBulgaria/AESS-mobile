@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Widget from './Widget'
-import { Colors } from '../../Themes'
+import { Colors, Fonts } from '../../Themes'
 import { DEVICE_TYPES } from '../../Constants'
 import Blink from '../Animated/Blink'
 
@@ -34,39 +34,53 @@ const BinarySensor = ({ device, icon, title }) => {
     </View>
   )
 }
-const LightSensor = ({ device }) => (
-  <BinarySensor
-    device={device}
-    title={'Light'}
-    icon={
-      <Icon
-        color={Colors.app.white}
-        name={Number(device.state) ? 'lightbulb-on' : 'lightbulb-outline'}
-        type="material-community"
-      />
-    }
-  />
-)
+const LightSensor = ({ device }) => {
+  const state = Number(device.state)
+  const color = state ? Colors.app.white : Colors.ricePaper
+  const iconName = state ? 'lightbulb-on' : 'lightbulb-outline'
+  return (
+    <BinarySensor
+      device={device}
+      title={'Light'}
+      icon={<Icon color={color} name={iconName} type="material-community" />}
+    />
+  )
+}
 
-const MotionSensor = ({ device }) => (
-  <BinarySensor
-    device={device}
-    title={'Motion'}
-    icon={
-      <Icon
-        color={Colors.app.white}
-        name={Number(device.state) ? 'radiobox-marked' : 'radiobox-blank'}
-        type="material-community"
-      />
-    }
-  />
+const MotionSensor = ({ device }) => {
+  const state = Number(device.state)
+  const color = state ? Colors.app.white : Colors.frost
+  const iconName = state ? 'radiobox-marked' : 'radiobox-blank'
+  return (
+    <BinarySensor
+      device={device}
+      title={'Motion'}
+      icon={<Icon color={color} name={iconName} type="material-community" />}
+    />
+  )
+}
+
+const CurrentSensor = ({ device }) => (
+  <View style={styles.device}>
+    <Text style={styles.title}>Current</Text>
+    <Text
+      style={{
+        color: Colors.app.white,
+        backgroundColor: Colors.transparent,
+        fontSize: Fonts.size.h6
+      }}
+    >
+      {device.state} V
+    </Text>
+  </View>
 )
 
 const createDevice = (device, i) => {
   console.log(device)
   return {
     [DEVICE_TYPES.MOTION]: <MotionSensor key={i} device={device} />,
-    [DEVICE_TYPES.LIGHT]: <LightSensor key={i} device={device} />
+    [DEVICE_TYPES.LIGHT]: <LightSensor key={i} device={device} />,
+    [DEVICE_TYPES.CURRENT]: <CurrentSensor key={i} device={device} />
   }[device.type]
 }
 
