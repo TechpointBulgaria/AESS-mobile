@@ -46,6 +46,7 @@ export function* init(api, action) {
     } else {
       yield put(RoomActions.roomFailure())
     }
+    yield put(RoomActions.roomRequest())
     yield put(SplashActions.loggedIn())
   } else {
     yield call(waitRandomTime)

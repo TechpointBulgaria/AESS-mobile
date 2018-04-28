@@ -11,10 +11,12 @@
  *************************************************************/
 
 import { call, put, select } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import RoomActions from '../Redux/RoomRedux'
 import { LoginSelectors } from '../Redux/LoginRedux'
 // import { RoomSelectors } from '../Redux/RoomRedux'
 import transformRoomData from '../Transforms/TransformRoomData'
+import AppConfig from '../Config/AppConfig'
 
 export function* getRooms(api, action) {
   const token = yield select(LoginSelectors.getToken)
@@ -28,4 +30,8 @@ export function* getRooms(api, action) {
   } else {
     yield put(RoomActions.roomFailure())
   }
+
+  yield call(delay, AppConfig.refreshInterval)
+  const isLoggedIn = yield select(LoginSelectors.getToken)
+  if (isLoggedIn) yield put(RoomActions.roomRequest())
 }

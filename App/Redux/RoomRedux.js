@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  roomRequest: ['data'],
+  roomRequest: null,
   roomSuccess: ['payload'],
   roomFailure: null
 })
@@ -30,8 +30,7 @@ export const RoomSelectors = {
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+export const request = state => state.merge({ fetching: true })
 
 // successful api lookup
 export const success = (state, action) => {

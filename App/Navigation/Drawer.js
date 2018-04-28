@@ -5,6 +5,7 @@ import MenuButton from './MenuButton'
 import RoomScreen from '../Containers/RoomScreen'
 import DrawerContent from './DrawerContent'
 import { Colors } from '../Themes'
+import { shouldUpdate } from 'recompose'
 
 const createRoomStack = ({ name, id }) => ({
   [name]: StackNavigator({
@@ -15,7 +16,7 @@ const createRoomStack = ({ name, id }) => ({
         headerLeft: <MenuButton />,
         headerTintColor: Colors.app.white,
         headerStyle: {
-          backgroundColor: Colors.app.dark,
+          backgroundColor: Colors.app.dark
         }
       }
     },
@@ -23,7 +24,11 @@ const createRoomStack = ({ name, id }) => ({
   })
 })
 
-const Drawer = ({ rooms }) => {
+const enhance = shouldUpdate(
+  (props, nextProps) => props.rooms.length !== nextProps.rooms.length
+)
+const Drawer = enhance(({ rooms }) => {
+  console.log('drawer render', rooms)
   const drawerItems = rooms.reduce(
     (all, room) => ({
       ...all,
@@ -44,7 +49,7 @@ const Drawer = ({ rooms }) => {
     }
   })
   return <Nav />
-}
+})
 
 const mapStateToProps = state => ({ rooms: state.rooms.data })
 

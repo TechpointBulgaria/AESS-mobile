@@ -28,6 +28,7 @@ export function* login(api, action) {
     } else {
       yield put(RoomActions.roomFailure())
     }
+    yield put(RoomActions.roomRequest())
     yield put(LoginActions.loginSuccess(response.data))
   } else {
     yield put(LoginActions.loginFailure())
