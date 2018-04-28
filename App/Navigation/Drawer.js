@@ -8,11 +8,11 @@ import { Colors } from '../Themes'
 import { shouldUpdate } from 'recompose'
 
 const createRoomStack = ({ name, id }) => ({
-  [name]: StackNavigator({
+  [id]: StackNavigator({
     RoomScreen: {
       screen: rest => <RoomScreen id={id} {...rest} />,
       navigationOptions: {
-        title: name,
+        title: name || id,
         headerLeft: <MenuButton />,
         headerTintColor: Colors.app.white,
         headerStyle: {
