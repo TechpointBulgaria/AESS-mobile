@@ -59,7 +59,6 @@ class RoomScreen extends Component {
         ...obj,
         [{
           [DEVICE_TYPES.TEMPERATURE]: 'temperatureSensor',
-          S: 'acController',
           [DEVICE_TYPES.HUMIDITY]: 'humiditySensor',
           [DEVICE_TYPES.LIGHT]: 'lightSensor',
           [DEVICE_TYPES.MOTION]: 'motionSensor'
@@ -81,8 +80,9 @@ class RoomScreen extends Component {
 
     const devices = this.partitionDevices(room)
     const historyDevice = this.getHistoryDevice(devices)
-    const { temperatureSensor, humiditySensor, acController } = devices
+    const { temperatureSensor, humiditySensor } = devices
     const secondaryDevices = this.getSecondaryDevices(room.devices)
+    const acController = !!room.commands.length
 
     // //DEBUG
     // return (
