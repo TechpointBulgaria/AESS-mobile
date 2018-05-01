@@ -80,7 +80,14 @@ const modeStyles = StyleSheet.create({
   }
 })
 
-const ModeView = ({ mode, onBack, onForward, active, onActivate }) => (
+const ModeView = ({
+  mode,
+  onBack,
+  onForward,
+  active,
+  onActivate,
+  isFetching
+}) => (
   <View style={[modeStyles.container, modeStyles.horizontal]}>
     <TouchableWithoutFeedback onPress={onBack}>
       <View style={modeStyles.arrowContainer}>
@@ -106,6 +113,7 @@ const ModeView = ({ mode, onBack, onForward, active, onActivate }) => (
           <Text style={modeStyles.activeText}>Active</Text>
         ) : (
           <Button
+            loading={isFetching}
             onPress={onActivate}
             title="Activate"
             buttonStyle={modeStyles.buttonInner}
@@ -149,7 +157,7 @@ class ModesScreen extends Component {
     this.setState({ index })
   }
   render() {
-    const { currentMode } = this.props
+    const { currentMode, isFetching } = this.props
     return (
       <ScreenBackground>
         <View
@@ -166,6 +174,7 @@ class ModesScreen extends Component {
               <ModeView
                 key={i}
                 mode={m}
+                isFetching={isFetching}
                 active={m.mode === currentMode}
                 onActivate={() => this.props.setCurrentMode(m.mode)}
                 onBack={this.onBack.bind(this)}
@@ -180,7 +189,8 @@ class ModesScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentMode: CurrentModeSelectors.getCurrentMode(state)
+  currentMode: CurrentModeSelectors.getCurrentMode(state),
+  isFetching: CurrentModeSelectors.isFetching(state)
 })
 
 const mapDispatchToProps = dispatch => ({

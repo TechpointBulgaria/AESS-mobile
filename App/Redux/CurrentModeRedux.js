@@ -24,13 +24,14 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const CurrentModeSelectors = {
-  getCurrentMode: state => state.currentMode.data
+  getCurrentMode: state => state.currentMode.data,
+  isFetching: state => state.currentMode.fetching
 }
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) => state.merge({ fetching: true })
+export const request = state => state.merge({ fetching: true })
 
 // successful api lookup
 export const success = (state, action) => {
@@ -45,6 +46,7 @@ export const failure = state => state.merge({ fetching: false, error: true })
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CURRENT_MODE_REQUEST]: request,
+  [Types.SET_CURRENT_MODE_REQUEST]: request,
   [Types.CURRENT_MODE_SUCCESS]: success,
   [Types.CURRENT_MODE_FAILURE]: failure
 })
