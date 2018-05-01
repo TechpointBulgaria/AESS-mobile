@@ -7,24 +7,27 @@ import { Icon } from 'react-native-elements'
 import { Colors, Fonts } from '../Themes'
 import ScreenBackground from '../Components/ScreenBackground'
 import LinearGradient from 'react-native-linear-gradient'
+import CurrentModeActions, {
+  CurrentModeSelectors
+} from '../Redux/CurrentModeRedux'
 
 // import styles from './Styles/ModesScreenStyle'
 
 const modes = [
   {
     name: 'Auto',
-    description: 'Autonomous mode with optimizing algorithms switched on.',
-    active: false
+    mode: 'auto',
+    description: 'Autonomous mode with optimizing algorithms switched on.'
   },
   {
     name: 'Away',
-    description: 'Autonomous mode optimized for lower consumption.',
-    active: true
+    mode: 'away',
+    description: 'Autonomous mode optimized for lower consumption.'
   },
   {
     name: 'Override',
-    description: 'Only shows sensor data. Does not controll anything.',
-    active: false
+    mode: 'override',
+    description: 'Only shows sensor data. Does not controll anything.'
   }
 ]
 
@@ -77,12 +80,7 @@ const modeStyles = StyleSheet.create({
   }
 })
 
-const styles = StyleSheet.create({})
-
-const lorem =
-  'Phasellus rutrum porttitor diam vitae efficitur. Pellentesque augue lorem, dictum sit amet aliquet eget'
-
-const ModeView = ({ mode, onBack, onForward }) => (
+const ModeView = ({ mode, onBack, onForward, active, onActivate }) => (
   <View style={[modeStyles.container, modeStyles.horizontal]}>
     <TouchableWithoutFeedback onPress={onBack}>
       <View style={modeStyles.arrowContainer}>
@@ -104,10 +102,11 @@ const ModeView = ({ mode, onBack, onForward }) => (
         </Text>
       </View>
       <View style={modeStyles.section}>
-        {mode.active ? (
+        {active ? (
           <Text style={modeStyles.activeText}>Active</Text>
         ) : (
           <Button
+            onPress={onActivate}
             title="Activate"
             buttonStyle={modeStyles.buttonInner}
             textStyle={modeStyles.buttonText}
@@ -129,17 +128,12 @@ const ModeView = ({ mode, onBack, onForward }) => (
   </View>
 )
 
-const colors = [Colors.app.dark, Colors.app.light]
-
-const defaultStyle = {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center'
-}
-
 class ModesScreen extends Component {
   state = {
     index: 0
+  }
+  componentDidMount() {
+    this.props.getCurrentMode()
   }
   onBack() {
     const { index } = this.state
@@ -155,6 +149,7 @@ class ModesScreen extends Component {
     this.setState({ index })
   }
   render() {
+    const { currentMode } = this.props
     return (
       <ScreenBackground>
         <View
@@ -171,6 +166,8 @@ class ModesScreen extends Component {
               <ModeView
                 key={i}
                 mode={m}
+                active={m.mode === currentMode}
+                onActivate={() => this.props.setCurrentMode(m.mode)}
                 onBack={this.onBack.bind(this)}
                 onForward={this.onForward.bind(this)}
               />
@@ -182,18 +179,14 @@ class ModesScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    modes: [
-      { label: 'Auto', mode: 'auto' },
-      { label: 'Override', mode: 'override' },
-      { label: 'Away', mode: 'away' }
-    ]
-  }
-}
+const mapStateToProps = state => ({
+  currentMode: CurrentModeSelectors.getCurrentMode(state)
+})
 
-const mapDispatchToProps = dispatch => {
-  return {}
-}
+const mapDispatchToProps = dispatch => ({
+  getCurrentMode: () => dispatch(CurrentModeActions.currentModeRequest()),
+  setCurrentMode: mode =>
+    dispatch(CurrentModeActions.setCurrentModeRequest(mode))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModesScreen)

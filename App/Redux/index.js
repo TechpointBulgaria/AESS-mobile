@@ -18,20 +18,26 @@ import {
   reducer as historyReducer,
   INITIAL_STATE as historyState
 } from './HistoryRedux'
+import {
+  reducer as currentModeReducer,
+  INITIAL_STATE as currentModeState
+} from './CurrentModeRedux'
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducers = combineReducers({
   login: loginReducer,
   rooms: roomReducer,
   splash: splashReducer,
-  history: historyReducer
+  history: historyReducer,
+  currentMode: currentModeReducer
 })
 
 const initialState = {
   login: loginState,
   rooms: roomState,
   splash: splashState,
-  history: historyState
+  history: historyState,
+  currentMode: currentModeState
 }
 
 //handle logout -> clear all the state

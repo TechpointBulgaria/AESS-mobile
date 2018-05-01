@@ -11,6 +11,7 @@ import { LoginTypes } from '../Redux/LoginRedux'
 import { RoomTypes } from '../Redux/RoomRedux'
 import { SplashTypes } from '../Redux/SplashRedux'
 import { HistoryTypes } from '../Redux/HistoryRedux'
+import { CurrentModeTypes } from '../Redux/CurrentModeRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -20,6 +21,7 @@ import { login } from './LoginSagas'
 import { getRooms } from './RoomSagas'
 import { init } from './SplashSagas'
 import { fetchDeviceHistory } from './HistorySagas'
+import { getCurrentMode, setCurrentMode } from './ModesSagas'
 
 /* ------------- API ------------- */
 
@@ -40,6 +42,8 @@ export default function* root() {
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(RoomTypes.ROOM_REQUEST, getRooms, api),
     takeLatest(SplashTypes.SPLASH_REQUEST, init, api),
-    takeLatest(HistoryTypes.HISTORY_REQUEST, fetchDeviceHistory, api)
+    takeLatest(HistoryTypes.HISTORY_REQUEST, fetchDeviceHistory, api),
+    takeLatest(CurrentModeTypes.CURRENT_MODE_REQUEST, getCurrentMode, api),
+    takeLatest(CurrentModeTypes.SET_CURRENT_MODE_REQUEST, setCurrentMode, api)
   ])
 }
