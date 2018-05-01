@@ -34,7 +34,6 @@ export function* setCurrentMode(api, { mode }) {
   if (response.ok) {
     yield put(CurrentModeActions.currentModeSuccess(mode))
   } else {
-    console.log(response)
     yield put(CurrentModeActions.currentModeFailure())
   }
 }

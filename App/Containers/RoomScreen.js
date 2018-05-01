@@ -83,7 +83,6 @@ class RoomScreen extends Component {
     const historyDevice = this.getHistoryDevice(devices)
     const { temperatureSensor, humiditySensor, acController } = devices
     const secondaryDevices = this.getSecondaryDevices(room.devices)
-    console.log('sd', secondaryDevices)
 
     // //DEBUG
     // return (

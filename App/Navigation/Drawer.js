@@ -44,7 +44,6 @@ const enhance = shouldUpdate(
   (props, nextProps) => props.rooms.length !== nextProps.rooms.length
 )
 const Drawer = enhance(({ rooms }) => {
-  console.log('drawer render', rooms)
   const drawerItems = rooms
     .reduce(
       (all, room) => ({
@@ -60,10 +59,7 @@ const Drawer = enhance(({ rooms }) => {
     contentOptions: {
       activeBackgroundColor: Colors.app.light,
       inactiveTintColor: Colors.app.white,
-      activeTintColor: Colors.app.white,
-      onItemPress: route => {
-        console.log('hi')
-      }
+      activeTintColor: Colors.app.white
     }
   })
   return <Nav />
