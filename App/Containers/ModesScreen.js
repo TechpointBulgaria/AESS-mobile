@@ -182,11 +182,47 @@ class ModesScreen extends Component {
               />
             ))}
           </SwipeableViews>
+          <Dots index={this.state.index} n={modes.length} />
         </View>
       </ScreenBackground>
     )
   }
 }
+
+const dotStyle = StyleSheet.create({
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderColor: Colors.app.white,
+    borderWidth: 1,
+    marginRight: 3
+  },
+  active: {
+    backgroundColor: Colors.app.white
+  },
+  inactive: {
+    backgroundColor: Colors.transparent
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50
+  }
+})
+
+const Dot = ({ active }) => (
+  <View style={[dotStyle.dot, active ? dotStyle.active : dotStyle.inactive]} />
+)
+
+const Dots = ({ n, index }) => (
+  <View style={dotStyle.container}>
+    {Array(n)
+      .fill()
+      .map((_, i) => <Dot key={i} active={i === index} />)}
+  </View>
+)
 
 const mapStateToProps = state => ({
   currentMode: CurrentModeSelectors.getCurrentMode(state),
