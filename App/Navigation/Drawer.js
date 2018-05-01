@@ -44,18 +44,20 @@ const enhance = shouldUpdate(
   (props, nextProps) => props.rooms.length !== nextProps.rooms.length
 )
 const Drawer = enhance(({ rooms }) => {
-  const drawerItems = rooms
-    .reduce(
+  const drawerItems = {
+    modes: modesStack,
+    ...rooms.asMutable().reduce(
       (all, room) => ({
         ...all,
         ...createRoomStack(room)
       }),
       {}
     )
-    .merge({ modes: modesStack })
+  }
 
   const Nav = DrawerNavigator(drawerItems, {
     contentComponent: DrawerContent,
+    initialRouteName: rooms[0].id,
     contentOptions: {
       activeBackgroundColor: Colors.app.light,
       inactiveTintColor: Colors.app.white,
