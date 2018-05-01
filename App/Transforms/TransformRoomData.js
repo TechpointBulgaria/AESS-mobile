@@ -3,7 +3,7 @@ export default ({ result }) => ({
     ...room,
     devices: room.devices.map(device => ({
       ...device,
-      state: Number(device.state).toFixed(0)
+      state: device.state ? Number(device.state).toFixed(0) : 0
     }))
   }))
 })
