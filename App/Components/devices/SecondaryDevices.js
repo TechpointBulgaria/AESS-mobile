@@ -76,7 +76,6 @@ const CurrentSensor = ({ device }) => (
 )
 
 const createDevice = (device, i) => {
-  console.log(device)
   return {
     [DEVICE_TYPES.MOTION]: <MotionSensor key={i} device={device} />,
     [DEVICE_TYPES.LIGHT]: <LightSensor key={i} device={device} />,
