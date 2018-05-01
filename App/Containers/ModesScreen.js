@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import SwipeableViews from 'react-swipeable-views-native'
 import { Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
-import { Colors, Fonts } from '../Themes'
+import { Colors, Fonts, Metrics } from '../Themes'
 import ScreenBackground from '../Components/ScreenBackground'
 import LinearGradient from 'react-native-linear-gradient'
 import CurrentModeActions, {
@@ -67,7 +67,7 @@ const modeStyles = StyleSheet.create({
   buttonInner: {
     backgroundColor: Colors.app.dark,
     borderRadius: 4,
-    width: '100%'
+    width: Metrics.screenWidth / 2
   },
   buttonText: {
     color: Colors.app.white,
@@ -75,8 +75,16 @@ const modeStyles = StyleSheet.create({
   },
   activeText: {
     backgroundColor: Colors.transparent,
-    fontSize: Fonts.size.h3,
-    color: Colors.app.white
+    fontSize: 16,
+    color: 'limegreen', //'#0EAD69',
+    fontWeight: 'bold',
+
+    borderColor: 'limegreen',
+    borderWidth: 1,
+    borderRadius: 4,
+    padding: 10,
+    width: Metrics.screenWidth / 2,
+    textAlign: 'center'
   }
 })
 
@@ -100,6 +108,7 @@ const ModeView = ({
       </View>
     </TouchableWithoutFeedback>
     <View style={modeStyles.innerContainer}>
+      <View style={modeStyles.section} />
       <View style={modeStyles.section}>
         <Text style={modeStyles.title}>{mode.name}</Text>
       </View>
@@ -121,6 +130,7 @@ const ModeView = ({
           />
         )}
       </View>
+      <View style={modeStyles.section} />
     </View>
 
     <TouchableWithoutFeedback onPress={onForward}>
