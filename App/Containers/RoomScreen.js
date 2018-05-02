@@ -19,6 +19,7 @@ import {
 } from '../Components/devices'
 import GraphContainer from './GraphContainer'
 import HistoryActions from '../Redux/HistoryRedux'
+import AcActions from '../Redux/AcRedux'
 import { DEVICE_TYPES } from '../Constants'
 
 // Styles
@@ -115,10 +116,10 @@ class RoomScreen extends Component {
         {acController && (
           <ACController
             sensor={acController}
-            onPower={onPower}
-            onMode={onMode}
-            onPlus={onPlus}
-            onMinus={onMinus}
+            onPower={() => onPower(room.id)}
+            onMode={() => onMode(room.id)}
+            onPlus={() => onPlus(room.id)}
+            onMinus={() => onMinus(room.id)}
           />
         )}
         {/* </KeyboardAvoidingView> */}
@@ -133,10 +134,10 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchRooms: () => dispatch(RoomActions.roomRequest()),
-  onPower: () => alert('power'),
-  onMode: () => alert('mode'),
-  onPlus: () => alert('plus'),
-  onMinus: () => alert('minus'),
+  onPower: room => dispatch(AcActions.toggleOnOff(room)),
+  onMode: room => dispatch(AcActions.toggleMode(room)),
+  onPlus: room => dispatch(AcActions.increaseTemperature(room)),
+  onMinus: room => dispatch(AcActions.decreaseTemperature(room)),
   selectDevice: id => dispatch(HistoryActions.historySelectDevice(id))
 })
 

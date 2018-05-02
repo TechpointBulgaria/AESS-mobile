@@ -28,15 +28,28 @@ const create = (baseURL = 'http://62.210.30.128:27272/v1') => {
     api.get(`devices/${id}/history`, {}, authHeader(token))
 
   const fetchCurrentMode = token => api.get(`modes`, {}, authHeader(token))
+
   const setCurrentMode = (token, mode) =>
     api.post(`modes`, { mode }, authHeader(token))
+
+  const makeACCommand = (type, value) => (token, room) =>
+    api.post(`devices/${room}/${type}`, { value }, authHeader(token))
+
+  const acToggleOnOff = makeACCommand('ac', 'IRONOFF')
+  const acToggleMode = makeACCommand('ac', 'IRMODE')
+  const acIncreaseTemperature = makeACCommand('acset', 'IRTEMP+')
+  const acDecreaseTemperature = makeACCommand('acset', 'IRTEMP-')
 
   return {
     login,
     fetchRooms,
     fetchDeviceHistory,
     fetchCurrentMode,
-    setCurrentMode
+    setCurrentMode,
+    acToggleOnOff,
+    acToggleMode,
+    acIncreaseTemperature,
+    acDecreaseTemperature
   }
 }
 

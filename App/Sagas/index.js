@@ -12,6 +12,7 @@ import { RoomTypes } from '../Redux/RoomRedux'
 import { SplashTypes } from '../Redux/SplashRedux'
 import { HistoryTypes } from '../Redux/HistoryRedux'
 import { CurrentModeTypes } from '../Redux/CurrentModeRedux'
+import { AcTypes } from '../Redux/AcRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -22,6 +23,12 @@ import { getRooms } from './RoomSagas'
 import { init } from './SplashSagas'
 import { fetchDeviceHistory } from './HistorySagas'
 import { getCurrentMode, setCurrentMode } from './ModesSagas'
+import {
+  toggleMode,
+  toggleOnOff,
+  increaseTemperature,
+  decreaseTemperature
+} from './AcSagas'
 
 /* ------------- API ------------- */
 
@@ -34,16 +41,15 @@ const api = API.create()
 
 export default function* root() {
   yield all([
-    // // some sagas only receive an action
-    // takeLatest(StartupTypes.STARTUP, startup),
-    //
-    // // some sagas receive extra parameters in addition to an action
-    // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(RoomTypes.ROOM_REQUEST, getRooms, api),
     takeLatest(SplashTypes.SPLASH_REQUEST, init, api),
     takeLatest(HistoryTypes.HISTORY_REQUEST, fetchDeviceHistory, api),
     takeLatest(CurrentModeTypes.CURRENT_MODE_REQUEST, getCurrentMode, api),
-    takeLatest(CurrentModeTypes.SET_CURRENT_MODE_REQUEST, setCurrentMode, api)
+    takeLatest(CurrentModeTypes.SET_CURRENT_MODE_REQUEST, setCurrentMode, api),
+    takeLatest(AcTypes.TOGGLE_MODE, toggleMode, api),
+    takeLatest(AcTypes.TOGGLE_ON_OFF, toggleOnOff, api),
+    takeLatest(AcTypes.INCREASE_TEMPERATURE, increaseTemperature, api),
+    takeLatest(AcTypes.DECREASE_TEMPERATURE, decreaseTemperature, api)
   ])
 }
