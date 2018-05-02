@@ -1,5 +1,5 @@
 export default sensorData =>
-  sensorData.map(({ createdAt, value }, i) => ({
+  sensorData.filter(_ => !!_.value).map(({ value }, i) => ({
     x: i, //createdAt,
     y: value
   }))
