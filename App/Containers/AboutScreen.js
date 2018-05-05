@@ -10,7 +10,8 @@ const label = {
   color: Colors.app.white,
   backgroundColor: Colors.transparent,
   fontSize: 20,
-  textAlign: 'center'
+  textAlign: 'center',
+  fontWeight: 'bold'
 }
 
 class AboutScreen extends Component {
@@ -33,7 +34,7 @@ class AboutScreen extends Component {
           }}
         >
           <Text style={label}>S/N ACT841A32CE395D</Text>
-          <Text style={label}>Active Technology LTD</Text>
+          <Text style={label}>Active Technology Ltd.</Text>
         </View>
       </ScreenBackground>
     )
