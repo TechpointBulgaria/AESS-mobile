@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { Fonts, Colors, Metrics } from '../../Themes'
 import Widget from './Widget'
 
-export default ({ sensor, onPress }) => (
+export default ({ sensor, onPress, setTemp }) => (
   <Widget flex={3}>
     <TouchableOpacity
       onPress={() => onPress(sensor.deviceId)}
@@ -26,10 +26,18 @@ export default ({ sensor, onPress }) => (
             fontWeight: 'bold',
             fontSize: 60,
             color: Colors.app.white,
-            backgroundColor: 'transparent'
+            backgroundColor: Colors.transparent
           }}
         >
           {sensor.state}°C
+        </Text>
+        <Text
+          style={{
+            color: Colors.app.white,
+            backgroundColor: Colors.transparent
+          }}
+        >
+          {setTemp}
         </Text>
       </View>
     </TouchableOpacity>

@@ -70,7 +70,16 @@ class RoomScreen extends Component {
   }
 
   render() {
-    const { room, onPower, onMode, onPlus, onMinus, selectDevice } = this.props
+    const {
+      room,
+      onPower,
+      onMode,
+      onPlus,
+      onMinus,
+      selectDevice,
+      acController,
+      acTemp
+    } = this.props
 
     if (this.isEmpty(room))
       return (
@@ -83,7 +92,6 @@ class RoomScreen extends Component {
     const historyDevice = this.getHistoryDevice(devices)
     const { temperatureSensor, humiditySensor } = devices
     const secondaryDevices = this.getSecondaryDevices(room.devices)
-    const acController = !!room.commands.length
 
     // //DEBUG
     // return (
@@ -104,6 +112,7 @@ class RoomScreen extends Component {
           <TemperatureSensor
             onPress={selectDevice}
             sensor={temperatureSensor}
+            setTemp={acTemp}
           />
         )}
         {humiditySensor && (
@@ -129,7 +138,16 @@ class RoomScreen extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  room: RoomSelectors.getRoomFancy(props.id, state)
+  room: RoomSelectors.getRoomFancy(props.id, state),
+  acController: (() => {
+    const room = RoomSelectors.getRoomFancy(props.id, state)
+    return room.commands.filter(c => c.type === 'AC').length > 0
+  })(),
+  acTemp: (() => {
+    const room = RoomSelectors.getRoomFancy(props.id, state)
+    const acset = room.commands.filter(c => c.type === 'ACSET')[0]
+    return acset ? acset.state : 'not set'
+  })()
 })
 
 const mapDispatchToProps = dispatch => ({
