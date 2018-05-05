@@ -4,6 +4,7 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import MenuButton from './MenuButton'
 import RoomScreen from '../Containers/RoomScreen'
 import ModesScreen from '../Containers/ModesScreen'
+import AboutScreen from '../Containers/AboutScreen'
 import DrawerContent from './DrawerContent'
 import { Colors } from '../Themes'
 import { shouldUpdate } from 'recompose'
@@ -40,6 +41,20 @@ const modesStack = StackNavigator({
   initialRouteName: 'ModesScreen'
 })
 
+const aboutStack = StackNavigator({
+  AboutScreen: {
+    screen: rest => <AboutScreen id={'about'} {...rest} />,
+    navigationOptions: {
+      title: 'About',
+      headerLeft: <MenuButton />,
+      headerTintColor: Colors.app.white,
+      headerStyle: {
+        backgroundColor: Colors.app.dark
+      }
+    }
+  }
+})
+
 const enhance = shouldUpdate(
   (props, nextProps) => props.rooms.length !== nextProps.rooms.length
 )
@@ -52,7 +67,8 @@ const Drawer = enhance(({ rooms }) => {
         ...createRoomStack(room)
       }),
       {}
-    )
+    ),
+    about: aboutStack
   }
 
   const Nav = DrawerNavigator(drawerItems, {

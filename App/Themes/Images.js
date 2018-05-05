@@ -22,7 +22,8 @@ const images = {
   closeButton: require('../Images/Icons/close-button.png'),
 
   /*** my images start here ***/
-  avatar: require('../Images/my/avatar.jpg')
+  avatar: require('../Images/my/avatar.jpg'),
+  about: require('../Images/my/about.png')
 }
 
 export default images
