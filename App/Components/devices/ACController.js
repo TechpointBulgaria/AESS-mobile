@@ -14,7 +14,7 @@ const BooleanIndicatorView = ({ state, children }) => (
       }}
     >
       <Icon
-        size={12}
+        size={10}
         type="font-awesome"
         name="circle"
         color={state ? Colors.app.success : Colors.app.muted}
@@ -42,8 +42,10 @@ const Button = ({ onPress, children }) => {
         alignItems: 'center',
         height: 50,
         justifyContent: 'center',
-        margin: 1,
-        borderRadius: 4
+        margin: 2,
+        borderRadius: 5,
+        borderWidth: 1.4,
+        borderColor: 'black'
       }}
       onPress={onPress}
     >
