@@ -5,6 +5,33 @@ import Widget from './Widget'
 
 import { Icon } from 'react-native-elements'
 
+const BooleanIndicatorView = ({ state, children }) => (
+  <View style={{ flex: 1, alignSelf: 'stretch' }}>
+    <View
+      style={{
+        position: 'absolute',
+        padding: 3
+      }}
+    >
+      <Icon
+        size={12}
+        type="font-awesome"
+        name="circle"
+        color={state ? Colors.app.success : Colors.app.muted}
+      />
+    </View>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      {children}
+    </View>
+  </View>
+)
+
 const Button = ({ onPress, children }) => {
   return (
     <TouchableOpacity
@@ -37,18 +64,22 @@ export default ({ sensor, onPower, onMode, onPlus, onMinus }) => (
     }}
   >
     <Button onPress={onPower}>
-      <Icon inverse name="power" type="foundation" color={Colors.app.white} />
+      <BooleanIndicatorView state={sensor.IRONOFF}>
+        <Icon inverse name="power" type="foundation" color={Colors.app.white} />
+      </BooleanIndicatorView>
     </Button>
     <Button onPress={onMode}>
-      <Text
-        style={{
-          fontWeight: 'bold',
-          fontSize: 17,
-          color: Colors.app.white
-        }}
-      >
-        M
-      </Text>
+      <BooleanIndicatorView state={sensor.IRMODE}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 17,
+            color: Colors.app.white
+          }}
+        >
+          M
+        </Text>
+      </BooleanIndicatorView>
     </Button>
     <Button onPress={onMinus}>
       <Icon inverse name="minus" type="entypo" color={Colors.app.white} />

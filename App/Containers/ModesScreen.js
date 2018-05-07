@@ -76,10 +76,10 @@ const modeStyles = StyleSheet.create({
   activeText: {
     backgroundColor: Colors.transparent,
     fontSize: 16,
-    color: 'limegreen', //'#0EAD69',
+    color: Colors.app.success, //'#0EAD69',
     fontWeight: 'bold',
 
-    borderColor: 'limegreen',
+    borderColor: Colors.app.success,
     borderWidth: 1,
     borderRadius: 4,
     padding: 10,

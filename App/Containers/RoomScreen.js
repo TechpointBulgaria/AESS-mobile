@@ -141,7 +141,8 @@ const mapStateToProps = (state, props) => ({
   room: RoomSelectors.getRoomFancy(props.id, state),
   acController: (() => {
     const room = RoomSelectors.getRoomFancy(props.id, state)
-    return room.commands.filter(c => c.type === 'AC').length > 0
+    const ac = room.commands.filter(c => c.type === 'AC')[0]
+    return ac ? ac.state : false
   })(),
   acTemp: (() => {
     const room = RoomSelectors.getRoomFancy(props.id, state)
