@@ -36,27 +36,35 @@ const BinarySensor = ({ device, icon, title }) => {
 }
 const LightSensor = ({ device }) => {
   const state = Number(device.state)
-  const color = state ? Colors.app.white : Colors.ricePaper
+  const color = state ? 'yellow' : Colors.app.dark
   const iconName = state ? 'lightbulb-on' : 'lightbulb-outline'
   return (
-    <BinarySensor
-      device={device}
-      title={'Light'}
-      icon={<Icon color={color} name={iconName} type="material-community" />}
-    />
+    // <BinarySensor
+    //   device={device}
+    //   title={'Light'}
+    //   icon={<Icon color={color} name={iconName} type="material-community" />}
+    // />
+    <View style={styles.device}>
+      <Text style={styles.title}>Light</Text>
+      <Icon color={color} name={iconName} type="material-community" />
+    </View>
   )
 }
 
 const MotionSensor = ({ device }) => {
   const state = Number(device.state)
-  const color = state ? Colors.app.white : Colors.frost
+  const color = state ? Colors.app.success : Colors.app.dark
   const iconName = state ? 'radiobox-marked' : 'radiobox-blank'
   return (
-    <BinarySensor
-      device={device}
-      title={'Motion'}
-      icon={<Icon color={color} name={iconName} type="material-community" />}
-    />
+    // <BinarySensor
+    //   device={device}
+    //   title={'Motion'}
+    //   icon={<Icon color={color} name={iconName} type="material-community" />}
+    // />
+    <View style={styles.device}>
+      <Text style={styles.title}>Motion</Text>
+      <Icon color={color} name={iconName} type="material-community" />
+    </View>
   )
 }
 
