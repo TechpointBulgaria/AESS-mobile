@@ -12,6 +12,7 @@
 
 import { call, put, select } from 'redux-saga/effects'
 import { LoginSelectors } from '../Redux/LoginRedux'
+import RoomActions from '../Redux/RoomRedux'
 
 function* makeCall(method, api, action) {
   const { room } = action
@@ -20,20 +21,26 @@ function* makeCall(method, api, action) {
   const response = yield call(api[method], token, room)
   if (response.ok) {
     console.log(response.data)
+    return true
   } else {
     console.log('fak: ', response)
+    return false
   }
 }
 
 export function* toggleOnOff(api, action) {
-  yield call(makeCall, 'acToggleOnOff', api, action)
+  const result = yield call(makeCall, 'acToggleOnOff', api, action)
+  if (result) yield put(RoomActions.togglePowerSuccess(action.room))
 }
 export function* toggleMode(api, action) {
-  yield call(makeCall, 'acToggleMode', api, action)
+  const result = yield call(makeCall, 'acToggleMode', api, action)
+  if (result) yield put(RoomActions.toggleModeSuccess(action.room))
 }
 export function* increaseTemperature(api, action) {
-  yield call(makeCall, 'acIncreaseTemperature', api, action)
+  const result = yield call(makeCall, 'acIncreaseTemperature', api, action)
+  if (result) yield put(RoomActions.increaseTemperatureSuccess(action.room))
 }
 export function* decreaseTemperature(api, action) {
-  yield call(makeCall, 'acDecreaseTemperature', api, action)
+  const result = yield call(makeCall, 'acDecreaseTemperature', api, action)
+  if (result) yield put(RoomActions.decreaseTemperatureSuccess(action.room))
 }

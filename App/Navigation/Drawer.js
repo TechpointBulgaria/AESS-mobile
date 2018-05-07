@@ -61,7 +61,7 @@ const enhance = shouldUpdate(
 const Drawer = enhance(({ rooms }) => {
   const drawerItems = {
     modes: modesStack,
-    ...rooms.asMutable().reduce(
+    ...rooms.reduce(
       (all, room) => ({
         ...all,
         ...createRoomStack(room)
