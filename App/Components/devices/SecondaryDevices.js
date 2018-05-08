@@ -70,7 +70,7 @@ const MotionSensor = ({ device }) => {
 
 const CurrentSensor = ({ device }) => (
   <View style={styles.device}>
-    <Text style={styles.title}>Current</Text>
+    <Text style={styles.title}>{device.name || 'Current'}</Text>
     <Text
       style={{
         color: Colors.app.white,
@@ -78,7 +78,7 @@ const CurrentSensor = ({ device }) => (
         fontSize: Fonts.size.h6
       }}
     >
-      {device.state} V
+      {device.state} {device.unitName || 'V'}
     </Text>
   </View>
 )
