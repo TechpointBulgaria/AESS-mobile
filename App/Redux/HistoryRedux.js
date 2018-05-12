@@ -7,7 +7,7 @@ const { Types, Creators } = createActions({
   historyRequest: ['id'],
   historySuccess: ['id', 'payload'],
   historyFailure: ['id'],
-  historySelectDevice: ['id']
+  historySelectDevice: ['id', 'name']
 })
 
 export const HistoryTypes = Types
@@ -22,7 +22,8 @@ const DEVICE_INITIAL_STATE = Immutable({
 })
 
 export const INITIAL_STATE = Immutable({
-  selectedDevice: null,
+  selectedDeviceId: null,
+  selectedDeviceName: null,
   devices: Immutable({})
 })
 
@@ -30,7 +31,8 @@ export const INITIAL_STATE = Immutable({
 
 export const HistorySelectors = {
   getHistory: (id, state) => state.history.devices[id],
-  getSelectedDevice: state => state.history.selectedDevice
+  getSelectedDeviceId: state => state.history.selectedDeviceId,
+  getSelectedDeviceName: state => state.history.selectedDeviceName
 }
 
 const updateDeviceAtId = (state, id, device) =>
@@ -55,7 +57,8 @@ export const success = (state, { id, payload }) =>
 export const failure = state =>
   updateDeviceAtId(state, id, { fetching: false, payload: null, error: true })
 
-export const select = (state, { id }) => state.merge({ selectedDevice: id })
+export const select = (state, { id, name }) =>
+  state.merge({ selectedDeviceId: id, selectedDeviceName: name })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

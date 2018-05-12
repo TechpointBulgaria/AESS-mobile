@@ -6,7 +6,7 @@ import transformSensorData from '../Transforms/TransformSensorData'
 
 export function* fetchDeviceHistory(api) {
   const token = yield select(LoginSelectors.getToken)
-  const id = yield select(HistorySelectors.getSelectedDevice)
+  const id = yield select(HistorySelectors.getSelectedDeviceId)
 
   if (id === 99) {
     yield put(

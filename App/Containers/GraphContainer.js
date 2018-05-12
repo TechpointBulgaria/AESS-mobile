@@ -9,7 +9,7 @@ import Widget from '../Components/devices/Widget'
 const styles = StyleSheet.create({
   view: {
     backgroundColor: Colors.app.transparent,
-    height: Metrics.screenWidth / 2,
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     width: Metrics.screenWidth
@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.app.white,
     fontSize: 18
+  },
+  graphLabel: {
+    color: Colors.app.white,
+    marginLeft: 5,
+    marginTop: 5,
+    alignSelf: 'stretch'
   }
 })
 
@@ -36,8 +42,8 @@ class GraphContainer extends Component {
   errorView = <Text style={styles.text}>Could not get data from server</Text>
 
   render() {
-    const { device } = this.props
-
+    const { selectedDeviceName, device } = this.props
+    console.log(device)
     const Comp = device
       ? (() => {
           const { error, fetching, payload } = device
@@ -49,16 +55,22 @@ class GraphContainer extends Component {
 
     return (
       <Widget flex={3}>
-        <View style={styles.view}>{Comp}</View>
+        <View style={styles.view}>
+          {(!device || !device.fetching) && (
+            <Text style={styles.graphLabel}>{selectedDeviceName}</Text>
+          )}
+          {Comp}
+        </View>
       </Widget>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  selectedDeviceId: HistorySelectors.getSelectedDevice(state),
+  selectedDeviceId: HistorySelectors.getSelectedDeviceId(state),
+  selectedDeviceName: HistorySelectors.getSelectedDeviceName(state),
   device: HistorySelectors.getHistory(
-    HistorySelectors.getSelectedDevice(state),
+    HistorySelectors.getSelectedDeviceId(state),
     state
   )
 })

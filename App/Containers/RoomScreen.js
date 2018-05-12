@@ -29,16 +29,11 @@ class RoomScreen extends Component {
   componentWillMount() {
     const { room, selectDevice } = this.props
     const historyDevice = this.getHistoryDevice(this.partitionDevices(room))
-    historyDevice && selectDevice(historyDevice.deviceId)
+    historyDevice && selectDevice(historyDevice.deviceId, historyDevice.type)
   }
 
   getHistoryDevice(devices) {
-    const device = devices.temperatureSensor || devices.humiditySensor
-    return device
-      ? {
-          deviceId: device.deviceId
-        }
-      : null
+    return devices.temperatureSensor || devices.humiditySensor
   }
 
   getSecondaryDevices(devices, commands) {
@@ -173,7 +168,8 @@ const mapDispatchToProps = dispatch => ({
   onMode: room => dispatch(AcActions.toggleMode(room)),
   onPlus: room => dispatch(AcActions.increaseTemperature(room)),
   onMinus: room => dispatch(AcActions.decreaseTemperature(room)),
-  selectDevice: id => dispatch(HistoryActions.historySelectDevice(id))
+  selectDevice: (id, name) =>
+    dispatch(HistoryActions.historySelectDevice(id, name))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen)
