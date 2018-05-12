@@ -40,7 +40,8 @@ class RoomScreen extends Component {
     const knownTypes = [
       DEVICE_TYPES.LIGHT,
       DEVICE_TYPES.MOTION,
-      DEVICE_TYPES.CURRENT
+      DEVICE_TYPES.CURRENT,
+      DEVICE_TYPES.GAS
     ]
 
     return devices

@@ -4,5 +4,6 @@ export const DEVICE_TYPES = {
   HUMIDITY: 'Humidity',
   TEMPERATURE: 'Temperature',
   CURRENT: 'Current',
-  SWITCH: 'SWITCH'
+  SWITCH: 'SWITCH',
+  GAS: 'Gas'
 }
