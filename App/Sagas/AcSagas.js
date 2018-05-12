@@ -29,18 +29,22 @@ function* makeCall(method, api, action) {
 }
 
 export function* toggleOnOff(api, action) {
+  yield put(RoomActions.togglePowerPending(action.room))
   const result = yield call(makeCall, 'acToggleOnOff', api, action)
   if (result) yield put(RoomActions.togglePowerSuccess(action.room))
 }
 export function* toggleMode(api, action) {
+  yield put(RoomActions.toggleModePending(action.room))
   const result = yield call(makeCall, 'acToggleMode', api, action)
   if (result) yield put(RoomActions.toggleModeSuccess(action.room))
 }
 export function* increaseTemperature(api, action) {
+  yield put(RoomActions.increaseTemperaturePending(action.room))
   const result = yield call(makeCall, 'acIncreaseTemperature', api, action)
   if (result) yield put(RoomActions.increaseTemperatureSuccess(action.room))
 }
 export function* decreaseTemperature(api, action) {
+  yield put(RoomActions.decreaseTemperaturePending(action.room))
   const result = yield call(makeCall, 'acDecreaseTemperature', api, action)
   if (result) yield put(RoomActions.decreaseTemperatureSuccess(action.room))
 }

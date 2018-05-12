@@ -41,13 +41,16 @@ class RoomScreen extends Component {
       : null
   }
 
-  getSecondaryDevices(devices) {
+  getSecondaryDevices(devices, commands) {
     const knownTypes = [
       DEVICE_TYPES.LIGHT,
       DEVICE_TYPES.MOTION,
       DEVICE_TYPES.CURRENT
     ]
-    return devices.filter(({ type }) => knownTypes.includes(type))
+
+    return devices
+      .filter(d => knownTypes.includes(d.type))
+      .concat(commands.filter(c => DEVICE_TYPES.SWITCH === c.type))
   }
 
   isEmpty(room) {
@@ -91,7 +94,10 @@ class RoomScreen extends Component {
     const devices = this.partitionDevices(room)
     const historyDevice = this.getHistoryDevice(devices)
     const { temperatureSensor, humiditySensor } = devices
-    const secondaryDevices = this.getSecondaryDevices(room.devices)
+    const secondaryDevices = this.getSecondaryDevices(
+      room.devices,
+      room.commands
+    )
 
     // //DEBUG
     // return (
@@ -120,7 +126,10 @@ class RoomScreen extends Component {
         )}
         {historyDevice && <GraphContainer />}
         {secondaryDevices.length > 0 && (
-          <SecondaryDevices devices={secondaryDevices} />
+          <SecondaryDevices
+            devices={secondaryDevices}
+            vertical={room.id === 'service'}
+          />
         )}
         {acController && (
           <ACController
@@ -141,8 +150,15 @@ const mapStateToProps = (state, props) => ({
   room: RoomSelectors.getRoomFancy(props.id, state),
   acController: (() => {
     const room = RoomSelectors.getRoomFancy(props.id, state)
-    const ac = room.commands.filter(c => c.type === 'AC')[0]
-    return ac ? ac.state : false
+    const ac = room.commands.reduce((obj, current) => {
+      return {
+        ...obj,
+        ...(current.type === 'AC' || current.type === 'ACSET'
+          ? { [current.type]: current }
+          : {})
+      }
+    }, {})
+    return ac.AC ? ac : false
   })(),
   acTemp: (() => {
     const room = RoomSelectors.getRoomFancy(props.id, state)

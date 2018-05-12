@@ -13,6 +13,7 @@ import { SplashTypes } from '../Redux/SplashRedux'
 import { HistoryTypes } from '../Redux/HistoryRedux'
 import { CurrentModeTypes } from '../Redux/CurrentModeRedux'
 import { AcTypes } from '../Redux/AcRedux'
+import { SwitchTypes } from '../Redux/SwitchRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -29,6 +30,7 @@ import {
   increaseTemperature,
   decreaseTemperature
 } from './AcSagas'
+import { turnSwitch } from './SwitchSagas'
 
 /* ------------- API ------------- */
 
@@ -50,6 +52,7 @@ export default function* root() {
     takeLatest(AcTypes.TOGGLE_MODE, toggleMode, api),
     takeLatest(AcTypes.TOGGLE_ON_OFF, toggleOnOff, api),
     takeLatest(AcTypes.INCREASE_TEMPERATURE, increaseTemperature, api),
-    takeLatest(AcTypes.DECREASE_TEMPERATURE, decreaseTemperature, api)
+    takeLatest(AcTypes.DECREASE_TEMPERATURE, decreaseTemperature, api),
+    takeLatest(SwitchTypes.TURN_SWITCH, turnSwitch, api)
   ])
 }

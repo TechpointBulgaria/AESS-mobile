@@ -40,6 +40,15 @@ const create = (baseURL = 'http://62.210.30.128:27272/v1') => {
   const acIncreaseTemperature = makeACCommand('acset', 'IRTEMP+')
   const acDecreaseTemperature = makeACCommand('acset', 'IRTEMP-')
 
+  const turnSwitch = (token, id, value) =>
+    api.post(
+      `devices/${id}/switch`,
+      {
+        value: value ? 'ON' : 'OFF'
+      },
+      authHeader(token)
+    )
+
   return {
     login,
     fetchRooms,
@@ -49,7 +58,8 @@ const create = (baseURL = 'http://62.210.30.128:27272/v1') => {
     acToggleOnOff,
     acToggleMode,
     acIncreaseTemperature,
-    acDecreaseTemperature
+    acDecreaseTemperature,
+    turnSwitch
   }
 }
 

@@ -1,58 +1,10 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, Image } from 'react-native'
-import { Fonts, Colors, Images, Metrics } from '../../Themes'
+import { Colors } from '../../Themes'
 import Widget from './Widget'
-
+import Button from '../utility/Button'
+import BooleanIndicatorView from '../utility/BooleanIndicatorView'
 import { Icon } from 'react-native-elements'
-
-const BooleanIndicatorView = ({ state, children }) => (
-  <View style={{ flex: 1, alignSelf: 'stretch' }}>
-    <View
-      style={{
-        position: 'absolute',
-        padding: 3
-      }}
-    >
-      <Icon
-        size={10}
-        type="font-awesome"
-        name="circle"
-        color={state ? Colors.app.success : Colors.app.muted}
-      />
-    </View>
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      {children}
-    </View>
-  </View>
-)
-
-const Button = ({ onPress, children }) => {
-  return (
-    <TouchableOpacity
-      activeOpacity={Metrics.activeOpacity}
-      style={{
-        backgroundColor: Colors.app.dark,
-        flex: 1,
-        alignItems: 'center',
-        height: 50,
-        justifyContent: 'center',
-        margin: 2,
-        borderRadius: 5,
-        borderWidth: 1.4,
-        borderColor: 'black'
-      }}
-      onPress={onPress}
-    >
-      {children}
-    </TouchableOpacity>
-  )
-}
 
 export default ({ sensor, onPower, onMode, onPlus, onMinus }) => (
   // <Widget>
@@ -65,13 +17,13 @@ export default ({ sensor, onPower, onMode, onPlus, onMinus }) => (
       alignItems: 'center'
     }}
   >
-    <Button onPress={onPower}>
-      <BooleanIndicatorView state={sensor.IRONOFF}>
+    <Button loading={sensor.AC.powerPending} onPress={onPower}>
+      <BooleanIndicatorView state={sensor.AC.state.IRONOFF}>
         <Icon inverse name="power" type="foundation" color={Colors.app.white} />
       </BooleanIndicatorView>
     </Button>
-    <Button onPress={onMode}>
-      <BooleanIndicatorView state={sensor.IRMODE}>
+    <Button loading={sensor.AC.modePending} onPress={onMode}>
+      <BooleanIndicatorView state={sensor.AC.state.IRMODE}>
         <Text
           style={{
             fontWeight: 'bold',
@@ -83,10 +35,10 @@ export default ({ sensor, onPower, onMode, onPlus, onMinus }) => (
         </Text>
       </BooleanIndicatorView>
     </Button>
-    <Button onPress={onMinus}>
+    <Button loading={sensor.ACSET.decreaseTemperaturePending} onPress={onMinus}>
       <Icon inverse name="minus" type="entypo" color={Colors.app.white} />
     </Button>
-    <Button onPress={onPlus}>
+    <Button loading={sensor.ACSET.increaseTemperaturePending} onPress={onPlus}>
       <Icon inverse name="plus" type="entypo" color={Colors.app.white} />
     </Button>
   </View>

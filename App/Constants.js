@@ -3,5 +3,6 @@ export const DEVICE_TYPES = {
   LIGHT: 'Light',
   HUMIDITY: 'Humidity',
   TEMPERATURE: 'Temperature',
-  CURRENT: 'Current'
+  CURRENT: 'Current',
+  SWITCH: 'SWITCH'
 }
