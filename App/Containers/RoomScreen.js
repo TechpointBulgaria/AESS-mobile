@@ -128,7 +128,7 @@ class RoomScreen extends Component {
         {secondaryDevices.length > 0 && (
           <SecondaryDevices
             devices={secondaryDevices}
-            vertical={room.id === 'service'}
+            vertical={room.id === 'service' || !temperatureSensor}
           />
         )}
         {acController && (
