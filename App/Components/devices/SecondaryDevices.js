@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Widget from './Widget'
-import { Colors, Fonts } from '../../Themes'
+import { Colors, Fonts, Metrics } from '../../Themes'
 import { DEVICE_TYPES } from '../../Constants'
 import Blink from '../Animated/Blink'
 import Button from '../utility/Button'
@@ -22,9 +22,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   device: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  deviceHorizontal: {
+    flex: 1
+  },
+  deviceVertical: {
+    alignSelf: 'stretch',
+    height: Metrics.screenHeight / 6
   },
   title: {
     backgroundColor: 'transparent',
@@ -34,13 +40,17 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   titleVertical: {
+    fontSize: Metrics.screenHeight / 28,
+    textDecorationLine: 'underline',
+    color: Colors.frost,
     marginBottom: 5
   },
   horizontal: {
     flexDirection: 'row'
   },
   vertical: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 })
 
@@ -50,6 +60,7 @@ const LightSensor = ({ device, vertical }) => {
   const iconName = state ? 'lightbulb-on' : 'lightbulb-outline'
   const viewStyle = [
     styles.device,
+    vertical ? styles.deviceVertical : styles.deviceHorizontal,
     vertical ? styles.vertical : styles.horizontal
   ]
   const titleStyle = [
@@ -70,6 +81,7 @@ const MotionSensor = ({ device, vertical }) => {
   const iconName = state ? 'radiobox-marked' : 'radiobox-blank'
   const viewStyle = [
     styles.device,
+    vertical ? styles.deviceVertical : styles.deviceHorizontal,
     vertical ? styles.vertical : styles.horizontal
   ]
   const titleStyle = [
@@ -85,7 +97,13 @@ const MotionSensor = ({ device, vertical }) => {
 }
 
 const CurrentSensor = ({ device, vertical }) => (
-  <View style={[styles.device, vertical ? styles.vertical : styles.horizontal]}>
+  <View
+    style={[
+      styles.device,
+      vertical ? styles.deviceVertical : styles.deviceHorizontal,
+      vertical ? styles.vertical : styles.horizontal
+    ]}
+  >
     <Text
       style={[
         styles.title,
@@ -98,7 +116,8 @@ const CurrentSensor = ({ device, vertical }) => (
       style={{
         color: Colors.app.white,
         backgroundColor: Colors.transparent,
-        fontSize: Fonts.size.h6
+        fontSize: vertical ? Metrics.screenHeight / 25 : Fonts.size.h6,
+        fontWeight: vertical ? 'bold' : 'normal'
       }}
     >
       {device.state} {device.unitName || 'V'}
@@ -107,7 +126,13 @@ const CurrentSensor = ({ device, vertical }) => (
 )
 
 const _SwitchSensor = ({ device, vertical, onPress }) => (
-  <View style={[styles.device, vertical ? styles.vertical : styles.horizontal]}>
+  <View
+    style={[
+      styles.device,
+      vertical ? styles.deviceVertical : styles.deviceHorizontal,
+      vertical ? styles.vertical : styles.horizontal
+    ]}
+  >
     <Text
       style={[
         styles.title,
