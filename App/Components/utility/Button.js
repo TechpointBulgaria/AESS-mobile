@@ -6,6 +6,7 @@ const Button = ({ onPress, children, loading }) => {
   return (
     <TouchableOpacity
       activeOpacity={Metrics.activeOpacity}
+      disabled={loading}
       style={{
         backgroundColor: Colors.app.dark,
         flex: 1,
