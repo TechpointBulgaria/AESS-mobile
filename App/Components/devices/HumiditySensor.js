@@ -12,7 +12,6 @@ import Widget from './Widget'
 const styles = StyleSheet.create({
   text: {
     backgroundColor: 'transparent',
-    textDecorationLine: 'underline',
     fontSize: Metrics.screenHeight / 28,
     color: Colors.frost
   },

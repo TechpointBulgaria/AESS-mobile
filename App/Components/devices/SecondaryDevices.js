@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
   },
   titleVertical: {
     fontSize: Metrics.screenHeight / 28,
-    textDecorationLine: 'underline',
     color: Colors.frost,
     marginBottom: 5
   },
