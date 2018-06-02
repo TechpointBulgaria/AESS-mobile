@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text } from 'react-native'
-import { Colors } from '../Themes'
+import { Image } from 'react-native'
+import { Images, Metrics, Colors } from '../Themes'
 
 const style = {
   color: Colors.app.white,
@@ -11,6 +11,15 @@ const style = {
   backgroundColor: 'transparent'
 }
 
-const Logo = () => <Text style={style}>MQTT Mobile</Text>
+const Logo = () => (
+  <Image
+    source={Images.logo}
+    style={{
+      width: Metrics.screenWidth * 0.9,
+      height: 80,
+      alignSelf: 'center'
+    }}
+  />
+)
 
 export default Logo

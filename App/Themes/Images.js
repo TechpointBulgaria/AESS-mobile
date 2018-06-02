@@ -23,7 +23,8 @@ const images = {
 
   /*** my images start here ***/
   avatar: require('../Images/my/avatar.jpg'),
-  about: require('../Images/my/about.png')
+  about: require('../Images/my/about.png'),
+  logo: require('../Images/my/logo.png')
 }
 
 export default images
