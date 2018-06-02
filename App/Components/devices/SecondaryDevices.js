@@ -16,6 +16,7 @@ import BooleanIndicatorView from '../utility/BooleanIndicatorView'
 import { connect } from 'react-redux'
 import SwitchActions from '../../Redux/SwitchRedux'
 import GasSensor from './GasSensor'
+import Battery from './Battery'
 
 const styles = StyleSheet.create({
   view: {
@@ -177,6 +178,9 @@ const createDevice = vertical => (device, i) => {
     ),
     [DEVICE_TYPES.GAS]: (
       <GasSensor key={i} device={device} vertical={vertical} />
+    ),
+    [DEVICE_TYPES.BATTERY]: (
+      <Battery key={i} device={device} vertical={vertical} />
     )
   }[device.type]
 }

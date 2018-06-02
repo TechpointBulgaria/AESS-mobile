@@ -41,7 +41,8 @@ class RoomScreen extends Component {
       DEVICE_TYPES.LIGHT,
       DEVICE_TYPES.MOTION,
       DEVICE_TYPES.CURRENT,
-      DEVICE_TYPES.GAS
+      DEVICE_TYPES.GAS,
+      DEVICE_TYPES.BATTERY
     ]
 
     return devices

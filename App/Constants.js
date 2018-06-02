@@ -5,5 +5,6 @@ export const DEVICE_TYPES = {
   TEMPERATURE: 'Temperature',
   CURRENT: 'Current',
   SWITCH: 'SWITCH',
-  GAS: 'Gas'
+  GAS: 'Gas',
+  BATTERY: 'Battery'
 }
