@@ -43,7 +43,6 @@ class GraphContainer extends Component {
 
   render() {
     const { selectedDeviceName, device } = this.props
-    console.log(device)
     const Comp = device
       ? (() => {
           const { error, fetching, payload } = device
