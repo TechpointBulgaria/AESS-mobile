@@ -12,11 +12,12 @@ const makeInterpolate = (min, max) => value => {
   return diff / maxDiff * 100
 }
 
+const interpolatePercent = makeInterpolate(0, 100)
 const interpolateBat = makeInterpolate(3, 4.2)
 const interpolateColor = makeInterpolate(0, 50)
 
-const getColor = value => {
-  const v = interpolateBat(value)
+const getColor = (interpolateFunction, value) => {
+  const v = interpolateFunction(value)
   if (v < 50) {
     const green = parseInt(interpolateColor(v) * 255 / 100)
     return `rgb(255, ${green},0)`
@@ -28,11 +29,11 @@ const getColor = value => {
 
 const defaultState = [
   {
-    value: 3.7,
+    value: 3.8,
     batteryId: 1
   },
   {
-    value: 3.63,
+    value: 3.9,
     batteryId: 2
   },
   {
@@ -48,7 +49,7 @@ const defaultState = [
     batteryId: 5
   },
   {
-    value: 3.62,
+    value: 3.85,
     batteryId: 6
   },
   {
@@ -56,7 +57,7 @@ const defaultState = [
     batteryId: 7
   },
   {
-    value: 3.51,
+    value: 3.91,
     batteryId: 8
   },
   {
@@ -81,7 +82,7 @@ const defaultState = [
   }
 ]
 
-const Summary = ({ children }) => (
+const Summary = ({ color, children }) => (
   <View
     style={{
       flex: 1,
@@ -91,7 +92,7 @@ const Summary = ({ children }) => (
   >
     <Text
       style={{
-        color: Colors.app.white,
+        color,
         backgroundColor: Colors.transparent,
         fontSize: Metrics.screenHeight / 25,
         fontWeight: 'bold'
@@ -122,7 +123,7 @@ const Bat = ({ value, rect }) => (
   <Rect
     {...rect}
     height={Math.max(4, interpolateBat(value) * 30 / 100)}
-    fill={getColor(value)}
+    fill={getColor(interpolateBat, value)}
   />
 )
 
@@ -132,14 +133,13 @@ export default ({ device }) => {
   const radius = 80
   const width = radius * 2 + 50
   const xCenter = width / 2
+  const summary = parseInt(
+    interpolateBat(state.reduce((x, y) => x + y.value, 0) / state.length)
+  )
 
   return (
     <Svg height={width} width={width}>
-      <Summary>
-        {parseInt(
-          interpolateBat(state.reduce((x, y) => x + y.value, 0) / state.length)
-        )}
-      </Summary>
+      <Summary color={getColor(interpolatePercent, summary)}>{summary}</Summary>
       {state.map((item, i) => (
         <Bat
           key={i}
