@@ -45,7 +45,7 @@ const aboutStack = StackNavigator({
   AboutScreen: {
     screen: rest => <AboutScreen id={'about'} {...rest} />,
     navigationOptions: {
-      title: 'About',
+      title: 'About (28.03.2018)',
       headerLeft: <MenuButton />,
       headerTintColor: Colors.app.white,
       headerStyle: {
