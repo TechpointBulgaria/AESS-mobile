@@ -9,7 +9,7 @@ const makeInterpolate = (min, max) => value => {
   const diff = value - min
   if (value <= min) return 0
   if (value >= max) return 100
-  return diff / maxDiff * 100
+  return (diff / maxDiff) * 100
 }
 
 const interpolatePercent = makeInterpolate(0, 100)
@@ -19,10 +19,10 @@ const interpolateColor = makeInterpolate(0, 50)
 const getColor = (interpolateFunction, value) => {
   const v = interpolateFunction(value)
   if (v < 50) {
-    const green = parseInt(interpolateColor(v) * 255 / 100)
+    const green = parseInt((interpolateColor(v) * 255) / 100)
     return `rgb(255, ${green},0)`
   } else {
-    const red = 255 - parseInt(interpolateColor(v - 50) * 255 / 100)
+    const red = 255 - parseInt((interpolateColor(v - 50) * 255) / 100)
     return `rgb(${red},255,0)`
   }
 }
@@ -92,6 +92,15 @@ const Summary = ({ color, children }) => (
   >
     <Text
       style={{
+        backgroundColor: 'transparent',
+        color: Colors.app.white,
+        fontSize: Metrics.screenHeight / 28
+      }}
+    >
+      Battery
+    </Text>
+    <Text
+      style={{
         color,
         backgroundColor: Colors.transparent,
         fontSize: Metrics.screenHeight / 25,
@@ -103,26 +112,37 @@ const Summary = ({ color, children }) => (
   </View>
 )
 
-const calculateRect = (i, radius, numOfItems, width, height, center) => {
-  const angle = i / (numOfItems / 2) * Math.PI
-  const x = radius * Math.cos(angle) + center - width / 2
-  const y = radius * Math.sin(angle) + center - height / 2
-  const origin = `${x + width / 2},${y + height / 2}`
-  const rotation = i * (360 / numOfItems) - 90
+// const calculateRect = (i, radius, numOfItems, width, height, center) => {
+//   const angle = i / (numOfItems / 2) * Math.PI
+//   const x = radius * Math.cos(angle) + center - width / 2
+//   const y = radius * Math.sin(angle) + center - height / 2
+//   const origin = `${x + width / 2},${y + height / 2}`
+//   const rotation = i * (360 / numOfItems) - 90
+//   return {
+//     x,
+//     y,
+//     width,
+//     height,
+//     origin,
+//     rotation
+//   }
+// }
+
+const calculateRect = (i, n, parentW, parentH, value) => {
+  const itemW = parentW / n
+  const height = Math.max(4, (interpolateBat(value) * 30) / 100)
   return {
-    x,
-    y,
-    width,
-    height,
-    origin,
-    rotation
+    x: itemW * i,
+    y: parentH - height,
+    width: parentW / n - 4,
+    height
   }
 }
 
 const Bat = ({ value, rect }) => (
   <Rect
     {...rect}
-    height={Math.max(4, interpolateBat(value) * 30 / 100)}
+    height={Math.max(4, (interpolateBat(value) * 30) / 100)}
     fill={getColor(interpolateBat, value)}
   />
 )
@@ -130,21 +150,24 @@ const Bat = ({ value, rect }) => (
 export default ({ device }) => {
   const state = device.state || defaultState
 
-  const radius = 80
-  const width = radius * 2 + 50
-  const xCenter = width / 2
+  // const radius = 80
+  // // const width = radius * 2 + 50
+  // const xCenter = width / 2
   const summary = parseInt(
     interpolateBat(state.reduce((x, y) => x + y.value, 0) / state.length)
   )
 
+  const width = Metrics.screenWidth - 40
+  const height = 150
+
   return (
-    <Svg height={width} width={width}>
+    <Svg height={height} width={width}>
       <Summary color={getColor(interpolatePercent, summary)}>{summary}</Summary>
       {state.map((item, i) => (
         <Bat
           key={i}
           value={item.value}
-          rect={calculateRect(i, radius, state.length, 20, 30, xCenter)}
+          rect={calculateRect(i, state.length, width, height, item.value)}
         />
       ))}
     </Svg>
