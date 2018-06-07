@@ -46,34 +46,32 @@ export default ({ sensor }) => {
   ]
 
   return (
-    <Svg height={height}>
-      <VictoryAxis
-        animate={animate}
-        height={height}
-        tickValues={xTicks}
-        tickCount={3}
-        standalone={false}
-        style={axisStyle}
-      />
-      <VictoryAxis
-        animate={animate}
-        dependentAxis
-        crossAxis
-        height={height}
-        domain={yDomain}
-        tickCount={3}
-        standalone={false}
-        style={axisStyle}
-        tickFormat={t => `${t} ${unit}`}
-      />
-      <VictoryLine
-        animate={animate}
-        interpolation="monotoneX"
-        domain={{ y: yDomain }}
-        data={sensor}
-        height={height}
-        style={lineStyle}
-      />
-    </Svg>
+    //  <VictoryAxis
+    //   animate={animate}
+    //   height={10}
+    //   tickValues={xTicks}
+    //   tickCount={3}
+    //   standalone={false}
+    //   style={axisStyle}
+    // />
+    // <VictoryAxis
+    //   animate={animate}
+    //   dependentAxis
+    //   crossAxis
+    //   height={10}
+    //   domain={yDomain}
+    //   tickCount={3}
+    //   standalone={false}
+    //   style={axisStyle}
+    //   tickFormat={t => `${t} ${unit}`}
+    // />
+    <VictoryLine
+      animate={animate}
+      interpolation="monotoneX"
+      domain={{ y: yDomain }}
+      data={sensor}
+      height={height}
+      style={lineStyle}
+    />
   )
 }
