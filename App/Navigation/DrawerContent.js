@@ -1,9 +1,8 @@
 import React from 'react'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
-import { ScrollView, View, Text } from 'react-native'
-import { ApplicationStyles, Metrics, Colors, Images } from '../Themes'
-import { Avatar } from 'react-native-elements'
-import LoginActions, { LoginSelectors } from '../Redux/LoginRedux'
+import { ScrollView, View, Text, Image } from 'react-native'
+import { Metrics, Colors, Images } from '../Themes'
+import { LoginSelectors } from '../Redux/LoginRedux'
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
@@ -21,18 +20,21 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
             backgroundColor: Colors.app.dark
           }}
         >
-          <Avatar
-            medium
-            rounded
-            source={Images.avatar}
-            onPress={() => console.log('Works!')}
-            activeOpacity={Metrics.activeOpacity}
+          <Image
+            source={Images.logo}
+            resizeMode={'center'}
+            style={{ flex: 5 }}
           />
           <Text
             style={{
+              flex: 3,
               color: Colors.app.white,
               marginTop: Metrics.marginVertical,
-              fontSize: 15
+              fontSize: 15,
+              marginTop: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
             {username}
@@ -74,6 +76,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch({ type: 'LOGOUT' })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withNavigation(DrawerContent)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNavigation(DrawerContent))
