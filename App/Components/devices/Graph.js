@@ -47,7 +47,7 @@ export default ({ sensor }) => {
   ]
 
   return (
-    <VictoryChart height={200}>
+    <VictoryChart height={185}>
       <VictoryAxis
         animate={animate}
         tickValues={allXTicks}

@@ -4,12 +4,11 @@ import Graph from '../Components/devices/Graph'
 import HistoryActions, { HistorySelectors } from '../Redux/HistoryRedux'
 import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Colors, Metrics } from '../Themes'
-import Widget from '../Components/devices/Widget'
 
 const styles = StyleSheet.create({
   view: {
     backgroundColor: Colors.app.transparent,
-    height: '100%',
+    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
     width: Metrics.screenWidth
@@ -20,8 +19,8 @@ const styles = StyleSheet.create({
   },
   graphLabel: {
     color: Colors.app.white,
-    marginLeft: 5,
-    marginTop: 5,
+    paddingLeft: 5,
+    paddingTop: 5,
     alignSelf: 'stretch'
   }
 })
@@ -53,14 +52,12 @@ class GraphContainer extends Component {
       : null
 
     return (
-      <Widget flex={3}>
-        <View style={styles.view}>
-          {(!device || !device.fetching) && (
-            <Text style={styles.graphLabel}>{selectedDeviceName}</Text>
-          )}
-          {Comp}
-        </View>
-      </Widget>
+      <View style={styles.view}>
+        {(!device || !device.fetching) && (
+          <Text style={styles.graphLabel}>{selectedDeviceName}</Text>
+        )}
+        {Comp}
+      </View>
     )
   }
 }
@@ -78,4 +75,7 @@ const mapDispatchToProps = dispatch => ({
   fetchDeviceHistory: id => dispatch(HistoryActions.historyRequest(id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(GraphContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GraphContainer)
