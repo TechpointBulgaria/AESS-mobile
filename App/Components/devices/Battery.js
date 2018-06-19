@@ -4,6 +4,11 @@ import { Icon } from 'react-native-elements'
 import { Colors, Metrics } from '../../Themes'
 import Svg, { Rect, Circle } from 'react-native-svg'
 
+const width = Metrics.screenWidth - 40
+const height = 180
+const sumH = height * 0.35
+const batH = height * 0.75
+
 const makeInterpolate = (min, max) => value => {
   const maxDiff = max - min
   const diff = value - min
@@ -45,7 +50,7 @@ const defaultState = [
     batteryId: 4
   },
   {
-    value: 2.82,
+    value: 3.82,
     batteryId: 5
   },
   {
@@ -85,7 +90,7 @@ const defaultState = [
 const Summary = ({ color, children }) => (
   <View
     style={{
-      flex: 1,
+      height: sumH,
       alignItems: 'center',
       justifyContent: 'center'
     }}
@@ -112,25 +117,9 @@ const Summary = ({ color, children }) => (
   </View>
 )
 
-// const calculateRect = (i, radius, numOfItems, width, height, center) => {
-//   const angle = i / (numOfItems / 2) * Math.PI
-//   const x = radius * Math.cos(angle) + center - width / 2
-//   const y = radius * Math.sin(angle) + center - height / 2
-//   const origin = `${x + width / 2},${y + height / 2}`
-//   const rotation = i * (360 / numOfItems) - 90
-//   return {
-//     x,
-//     y,
-//     width,
-//     height,
-//     origin,
-//     rotation
-//   }
-// }
-
 const calculateRect = (i, n, parentW, parentH, value) => {
   const itemW = parentW / n
-  const height = Math.max(4, (interpolateBat(value) * 30) / 100)
+  const height = Math.max(4, (interpolateBat(value) * parentH * 0.8) / 100)
   return {
     x: itemW * i,
     y: parentH - height,
@@ -140,36 +129,33 @@ const calculateRect = (i, n, parentW, parentH, value) => {
 }
 
 const Bat = ({ value, rect }) => (
-  <Rect
-    {...rect}
-    height={Math.max(4, (interpolateBat(value) * 30) / 100)}
-    fill={getColor(interpolateBat, value)}
-  />
+  <Rect {...rect} fill={getColor(interpolateBat, value)} />
 )
 
 export default ({ device }) => {
   const state = device.state instanceof Array ? device.state : defaultState
 
-  // const radius = 80
-  // // const width = radius * 2 + 50
-  // const xCenter = width / 2
   const summary = parseInt(
     interpolateBat(state.reduce((x, y) => x + y.value, 0) / state.length)
   )
 
-  const width = Metrics.screenWidth - 40
-  const height = 150
-
   return (
-    <Svg height={height} width={width}>
+    <View height={height} width={width}>
       <Summary color={getColor(interpolatePercent, summary)}>{summary}</Summary>
-      {state.map((item, i) => (
-        <Bat
-          key={i}
-          value={item.value}
-          rect={calculateRect(i, state.length, width, height, item.value)}
-        />
-      ))}
-    </Svg>
+      <Svg
+        style={{
+          height: batH,
+          width
+        }}
+      >
+        {state.map((item, i) => (
+          <Bat
+            key={i}
+            value={item.value}
+            rect={calculateRect(i, state.length, width, batH, item.value)}
+          />
+        ))}
+      </Svg>
+    </View>
   )
 }
