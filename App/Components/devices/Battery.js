@@ -148,7 +148,7 @@ const Bat = ({ value, rect }) => (
 )
 
 export default ({ device }) => {
-  const state = device.state || defaultState
+  const state = device.state instanceof Array ? device.state : defaultState
 
   // const radius = 80
   // // const width = radius * 2 + 50
