@@ -1,15 +1,16 @@
 import React from 'react'
 import { Colors, Metrics } from '../../Themes'
-import { VictoryAxis, VictoryLine } from 'victory-native'
-import Svg from 'react-native-svg'
+import { VictoryChart, VictoryAxis, VictoryLine } from 'victory-native'
 import { prop } from 'ramda'
-
-const height = Metrics.screenWidth / 2
 
 const axisStyle = {
   axis: { stroke: Colors.ricePaper },
   grid: { stroke: Colors.ricePaper, strokeWidth: 0.3 },
-  ticks: { stroke: Colors.ricePaper, size: 2, strokeWidth: 0.3 },
+  ticks: {
+    stroke: Colors.ricePaper,
+    size: 2,
+    strokeWidth: 0.3
+  },
   tickLabels: {
     fontSize: 12,
     padding: 8,
@@ -46,32 +47,32 @@ export default ({ sensor }) => {
   ]
 
   return (
-    //  <VictoryAxis
-    //   animate={animate}
-    //   height={10}
-    //   tickValues={xTicks}
-    //   tickCount={3}
-    //   standalone={false}
-    //   style={axisStyle}
-    // />
-    // <VictoryAxis
-    //   animate={animate}
-    //   dependentAxis
-    //   crossAxis
-    //   height={10}
-    //   domain={yDomain}
-    //   tickCount={3}
-    //   standalone={false}
-    //   style={axisStyle}
-    //   tickFormat={t => `${t} ${unit}`}
-    // />
-    <VictoryLine
-      animate={animate}
-      interpolation="monotoneX"
-      domain={{ y: yDomain }}
-      data={sensor}
-      height={height}
-      style={lineStyle}
-    />
+    <VictoryChart height={200}>
+      <VictoryAxis
+        animate={animate}
+        tickValues={allXTicks}
+        tickCount={4}
+        standalone={false}
+        style={axisStyle}
+      />
+      <VictoryAxis
+        animate={animate}
+        dependentAxis
+        crossAxis
+        domain={yDomain}
+        tickCount={3}
+        standalone={false}
+        style={axisStyle}
+        tickFormat={t => `${t} ${unit}`}
+      />
+      <VictoryLine
+        animate={animate}
+        interpolation="monotoneX"
+        domain={{ y: yDomain }}
+        data={sensor}
+        style={lineStyle}
+        width={Metrics.screenWidth}
+      />
+    </VictoryChart>
   )
 }
