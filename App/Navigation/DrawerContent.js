@@ -22,7 +22,7 @@ const DrawerContent = ({ username, navigation, logout, ...rest }) => (
         >
           <Image
             source={Images.logo}
-            resizeMode={'center'}
+            resizeMode={'contain'}
             style={{ flex: 5 }}
           />
           <Text
