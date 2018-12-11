@@ -6,7 +6,7 @@ const authHeader = token => ({
   }
 })
 
-const create = (baseURL = 'http://62.210.30.128:27272/v1') => {
+const create = (baseURL = 'http://51.15.226.219:27272/v1') => {
   const api = apisauce.create({
     baseURL,
     headers: {
